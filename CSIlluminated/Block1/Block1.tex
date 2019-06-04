@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Block One: Overview}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Brief Contents}
+\begin{itemize}
+    \item Laying the Groundwork
+    \item The Information Layer
+    \item The Hardware Layer
+    \item The programming Layer
+    \item The Operating System Layer
+    \item The Application Layer
+    \item The Communicaton Layer
+    \item Conclusion
+\end{itemize}
+
+\section{Preface}
+\subsection{Organization}
+Computer system is like an \textbf{onion}. The processor with its \underline{machine language} forms
+the \textbf{heart} of the ``onion''.
+
+This book is designed to:
+\begin{itemize}
+    \item provide an overview of the \textit{layers}.
+    \item introducing the underlying \underline{hardware and software} technologies
+    \item give an appreciation
+    \item understanding of all aspects of computing
+\end{itemize}
+
+This book choose a method called: \textbf{inside-out} method. 
+(i.e. begin with the concrete machine andexamine the layers in the order in which they were created)
+
+\subsection{Synopsis}
+\begin{itemize}
+    \item chapter 1: explaining the rationale for \textbf{this book Organization}
+    \item chapter 2-3: Information Layer (\textbf{{how data is represented in the computer}})
+    \item chapter 4-5: Hardware Layer (\textbf{electronic circuitry and logical gates to \underline{CPU}})
+    \item chapter 6-9: programming Layer (\textbf{from machine language to programming language})     
+    \item chapter 10-11: Operating system Layer
+    \item chapter 12-14: Application Layer (\textbf{information systems and AI})
+    \item chapter 15-17: Communicaton Layer (\textbf{introducing how computer communicate, WWW, security problem})
+    \item chapter 18: Conclusion with its limitations 
+\end{itemize}
+
+\section{Chapter 1: The big picture}
+\begin{abstract}
+    This chapter provides some \textbf{common terminology} and creating the basic platform for explorating CS 
+\end{abstract}
+
+\subsection{Computing Systems}
+Computer is a device but computer system is a \textbf{dynamic entity}, to interact with its environment.
+Computer system is composed of \underline{hardware} and \underline{software}.
+
+Layer of a computing system is a flow from inside to outside:
+\begin{center}
+    \textbf{Information $\rightarrow$ Hardware $\rightarrow$ programming $\rightarrow$ Operating System $\rightarrow$ Application $\rightarrow$ Communicaton}
+\end{center}
+
+Computer do only very simple task, but finish them so bindingly \textbf{fast}
+that many simple tasks can be combined to acomplish larger, more complicated tasks.
+
+6 Layers explaining in detail:
+\begin{enumerate}
+    \item[\textbf{Information}] It is a \textit{conceptual} layer. This Layer is about understanding binary format and transforming other format into binary system.
+    \item[\textbf{Hardware}] This Layer investigates using \textbf{electronic circuirty} to control the flow of electricity (i.e. using CPU)
+    \item[\textbf{Programming}] This Layer is about the \textbf{instructions} to accomplish computations and manage data
+    \item[\textbf{OS}] It is the \textbf{key} to understand computer system. This layer is to help manage the computer's resources
+    \item[\textbf{Application}] This layer focuses on solving real-world problems
+    \item[\textbf{Communicaton}] This layer explores how different computer communicates with each other   
+\end{enumerate}
+
+\textbf{abstraction} is a \underline{mental model} that removes complex details.
+It is the \textbf{key} to computing 
+
+\subsection{The history of computing}
+In 1936, \textbf{Alan M. Turing} invented an abstract mathematical model called a \textit{Turing machine}.
+
+This section includes the history of ``Hardware'' and ``Software'' (not very important) as follows:
+\begin{itemize}
+    \item Hardware
+    \begin{enumerate}
+        \item First Generation(1951-1959): Using \textbf{vacuum tubes}
+        \item Second Generation(1959-1965): Using \textbf{transistor} 
+        \item Third Generation(1965-1971): Using \textbf{circuit boards}
+        \item Fourth Generation(1971-now): Using \textbf{Large-scale integration} silicon chip
+    \end{enumerate}
+    \item Software
+    \begin{enumerate}
+        \item First Generation(1951-1959): Written in \textbf{machine language} and develop a tool called \textbf{Assembly language}
+        \item Second Generation(1959-1965): Written in \textbf{high-level languages} \underline{without} Operating system
+        \item Third Generation(1965-1971): Focusing on \textbf{Operating systems} and using some Application packages
+        \item Fourth Generation(1971-1989): Written in \textbf{structured programming} e.g. C++
+        \item Fifith Generation(1989-now): Developing in \textbf{object-oriented} and \textbf{web design}
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Computing as a tool and a discipline}
+\underline{Tool}: everyone excpet for toolmakers.
+
+\underline{Discipline}: focusing on a field of study
+
+\end{document}
