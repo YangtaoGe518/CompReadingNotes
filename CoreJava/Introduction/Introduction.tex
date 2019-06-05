@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{listings}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Introduction to Java}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{Preface}
+This book includes:
+\begin{itemize}
+    \item Objective-oriented programming
+    \item Reflection and proxies
+    \item Interface and inner classes
+    \item Exception handling
+    \item Generic programming
+    \item The collection framework
+    \item The event listener model
+    \item Graphical User Interface design with the Swing UI toolkit
+    \item Concurrency
+\end{itemize}
+The other knowledges are includes in ``Volume II'' e.g. Stream API, Dtatbases, XML, Network programming etc.
+
+\subsection*{Synopsis (10th-edition)}
+\begin{itemize}
+    \item chapter 1-3: Basic Introduction of Java (not focusing on)
+    \item chapter 4: OOP idea and basic terminology (As a review, very fast reading)
+    \item chapter 5: Inheritance
+    \item chapter 6: Interface and lambda expression
+    \item chapter 7: Exception handling
+    \item chapter 8 Generic programming (new things for the second reading)
+    \item chapter 9: collection (new things for the second reading)
+    \item chapter 10-12: Java Swing
+    \item chapter 13: deploy program (Interesting)
+    \item chapter 14: Concurrency (new things for the seconde reading)
+\end{itemize}
+
+\section{Chapter 1: An Introdcution to Java}
+\begin{abstract}
+This chapter notes will only focus on \textbf{Buzzwords} in Java and some related definition.
+Details will be required to refer to the actual book.
+
+These 11 buzzword is: 
+\begin{itemize}
+    \item Simple
+    \item Object-oriented
+    \item Distributed
+    \item Robust
+    \item Secure
+    \item Architecture-Neutral
+    \item Portable
+    \item Interpreted
+    \item High-Performance
+    \item Multithreaded
+    \item Dynamic
+\end{itemize}
+\end{abstract}
+
+\subsection{Buzzword}
+The detail definitions of these buzzword are as follows:
+\begin{enumerate}
+    \item[\textbf{Simple}] in C++ syntax, but be \textbf{simpler} to use 
+    and \textbf{smaller} to install
+    \item[\textbf{Object-oriented}] Focusing on the \textbf{data} and on the \textbf{interfaces} to that Object
+    \item[\textbf{Distributed}] It has an extensive library of routines for coping with TCP/IP protocols like HTTP and FTP
+    \item[\textbf{Robust}] It has \textbf{early checking} for possible problems, \textbf{Dynamic checking}
+    and \textbf{eliminating situations} that are error-prone.
+    \item[\textbf{Secure}] Three kinds of attacks impossible:
+        \begin{itemize}
+            \item Overrunning the running time stack
+            \item corrupting memory outside its process space
+            \item Reading and writting without permission
+        \end{itemize}
+    \item[\textbf{Architecture-Neutral}] Running on any Operating systems and Computer Architectures
+    by using \underline{Java's virtual machine} 
+    \item[\textbf{Portable}] No ``implementation-dependent'' i.e. The \textit{size} of data type are specified
+    \item[\textbf{Interpreted}] The Java Interoreter can execute Java bytecodes on any machine to which the interpreter has been ported.
+    \item[\textbf{High-Performance}] Java bytecodes are more than \textit{adequate}
+    \item[\textbf{Multithreaded}] support ``Concurrent'' and has lots of benefits.
+    \item[\textbf{Dynamic}] more Dynamic than C++. i.e. running time is strictly divided from compiling time    
+\end{enumerate}
+
+\subsection{Java applets and the internet}
+Java program that works on web pages are called \emph{applets}. Running it needs a web browser
+which can \textbf{exectue Java bytecode} for you.
+
+This allow a web page:
+\begin{itemize}
+    \item reacts user commands
+    \item changes its appearance
+    \item exchange data between \underline{clinet} and \underline{server}
+\end{itemize}
+
+\end{document}
