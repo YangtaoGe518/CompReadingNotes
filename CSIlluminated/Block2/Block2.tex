@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{comment}
 \usepackage{listings}
+\usepackage{mathtools}
 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{0.5em}
@@ -84,7 +85,118 @@ some definitions about bit:
 \end{itemize}
 
 \section{Chapter 3: Data Representation}
+\begin{abstract}
+This chapter includes how to store a certain type of information and represent in a computer environment
+\end{abstract}
 
+\subsection{Data and Computers}
+Some definitions related to data:
+\begin{itemize}
+    \item Data: basic value and facts
+    \item Information: Organized data and can provide \textbf{useful solutions} to problems
+    \item Multimeadia: Sevral different media types i.e. Numbers, Text, Audio, images and etc.
+    \item Bandwidth: The number of bits or bytes that can be transmitted from one place to 
+    another \underline{within a fixed time}
+    \item Data compression: shrink the size of the data
+    \item Compression ratio:
+    \begin{equation}
+        Ratio = \frac{Compressed\ Size}{Original\ Size}
+    \end{equation}
+    $0 < Ratio < 1$, closer to zero $\rightarrow$ tighter the compression
+    \item Lossless: \underline{Without any Loss} in the process of compaction
+    \item Lossy: \underline{Is lost} in the process of compaction
+\end{itemize}
 
+Real world is \textbf{infinite}, but computer is \textbf{finite}
+
+Some definitions about types of data:
+\begin{itemize}
+    \item Analog data: A \textbf{continuous} representation of data
+    e.g. mercury thermometer (\underline{smooth wave})
+    \item Digital data: A \textbf{discrete} representation of data
+    e.g. button (\underline{square wave})
+\end{itemize}
+
+In computer:
+\begin{itemize}
+    \item Analog Data $\xrightarrow{\text{digitize}}$ Digital Data 
+    \item use \textbf{binary} system to represent them     
+\end{itemize}
+
+Degraded: Electronic signals degrades as they move down a line (\textbf{Threshold})
+
+Some definitions about Digital signals:
+\begin{itemize}
+    \item Pulse-Code Modulation (PCM): Variation in a signal that jumps sharply between two \textbf{extremes}
+    \item Reclocked: The act of reasserting an original digital signal before \textbf{too much degreadation occurs}
+\end{itemize}
+
+\underline{Analog vs Digital:} (need review)
+\begin{itemize}
+    \item[\textbf{Analog}] degrades $\rightarrow$ in-range value $\rightarrow$ valid $\rightarrow$ information lost
+    \item[\textbf{Digital}] degrades $\rightarrow$ PCM $\rightarrow$ high to low $\rightarrow$ reclocked $\rightarrow$ information saved  
+\end{itemize}
+
+\emph{n} bits can represent $2^{n}$ things.\newline
+Increase the number of bits by 1 $\Rightarrow$ \textbf{double} the number of things we can represent
+
+\subsection{Representing Numeric Data}
+\subsubsection{Negative Values}
+\underline{The work flow is:}\newline
+Sign-Magnitude Representation $\rightarrow$ Fixed-sized Numbers $\rightarrow$ Two's Complement
+
+\begin{itemize}
+    \item Sign-Magnitude Representation: ``value + sign'' \newline
+    Problem: Will have \textbf{two} representation of 0 (+0 \& -0)
+    \item Fixed-sized Numbers: use half of the integers to represent negatives \newline
+    Method: Add the number together and \textbf{dicard} any carries
+    \begin{equation}
+        Negative(I) = 10^k - I
+    \end{equation}
+    Problem: Can't be represnet in computer
+    \item Two's Complement: use certain number of bits to represent a integer and \underline{leftmost} one bit for representing \textbf{sign}
+    e.g. -(2) is 11111110 \newline
+    Method: \textbf{invert} the bits and \textbf{add 1}
+    \begin{equation}
+        Negative(I) = 2^k - I
+    \end{equation}
+\end{itemize}
+
+\emph{Overflow} occurs when the value that we compute cannot fit into \underline{the number of bits} we have allocated for the result\newline
+e.g. 01111111(127) + 00000011(3) = 10000010(-126) is not +130
+
+\subsubsection{Real Numbers}
+Different from Math: all noninteger values $\Leftrightarrow$ Real Number
+
+\emph{Radix} means the \textbf{dot} that separates the \underline{whole} 
+part from the \underline{fractional} part in a real number in \textit{any base}
+
+\emph{Floating Point} means a representation of a real number that keeps track of the \textbf{sign}, \textbf{mantissa}, and \textbf{exponent}
+
+Base-10:
+\begin{equation}
+    R = sign * mantissa * 10^{exp}
+\end{equation}
+Base-2:
+\begin{equation}
+    R = sign * mantissa * 2^{exp}
+\end{equation}
+
+Floating Point needs 64 bits: $64 = 1(sign) + 11(exponent) + 52(mantissa)$ i.e. double precision
+
+\underline{Algorithm} Converting fractional parts from base-10 to other:
+\begin{lstlisting}
+    WHILE (the fractional part is not zero):
+        Multiply the fractional part by the new base
+        Make the whole part the next digit to the left in the answer
+        Replace the fractional part with the result of multiplication
+\end{lstlisting}
+
+Noticed that:
+\begin{itemize}
+    \item it is possible that the loop will \textbf{never end} $\rightarrow$ precision problems
+    \item instead of division, \textbf{multiplication} is used here
+    \item More detail method of computing the Floating point is \textbf{NOT} included in this book
+\end{itemize}
 
 \end{document}
