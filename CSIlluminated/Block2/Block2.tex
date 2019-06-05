@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{listings}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Block Two: The Information Layer}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Chapter 2: Binary Value and Number System}
+\begin{abstract}
+This chapter describes binary values -- the way in which computer \textbf{hardware} represents and manages information.
+It also puts the binary value in all number system.
+\end{abstract}
+
+\subsection{Number and  Computing}
+Some definitions of Numbers:
+\begin{itemize}
+    \item Number: A unit of an abstract mathematical system subject to \underline{the laws of arithmetic} (succession, addition and multiplication).
+    \item Natural number: The number \textbf{0} and any number obtained by \underline{reaptedly adding to 1} to 1.
+    \item Negative number: A value less than zero and with a sign oppsite to its \textbf{positive counterpart}
+    \item Rational number: An integer or the \underline{quotient} of two integers (division by zero included)
+\end{itemize}
+
+\subsection{Positional Notation}
+Some definitions of Base:
+\begin{itemize}
+    \item Base: The foundational value of a number system, which dictates \textbf{number digits} and the \textbf{value of digit Position}
+    \item Positional notation: A way of expressing number in different base system in a following way:
+    \begin{equation}
+        d_n * R^{n-1} + d_{n-1} * R^{n-2} + ... + d_2 * R + d_1
+    \end{equation}
+    where \textbf{Base-R} has \textit{n} digits and $d_i$ represents
+    the digit in the \textit{i}th position
+\end{itemize}
+
+Watch out the digit in a number. e.g. 2074 does not have base \textbf{less than Base-8}
+because digit 7 is used here.
+
+\textbf{2 digits} is needed to represent the base value. e.g. 10 is \underline{ten} in decimal.
+10 is \underline{eight} in base 8. 10 is \underline{two} in binary.
+
+Carry and borrow system is also applied to other base system. However, the value represented binary
+these carries and borrows means the \textbf{value of the base}.
+
+All power of 2 number system can be transfered to \textbf{binary}, then to \textbf{decimal}.
+Examples are as follows:
+\begin{center}
+\underline{count every 4 digits for Hex}
+
+1010110 = 101(5) \& 0110(6)  
+
+\underline{count every three digits for Oct}
+
+101010111100 = 101(5) \& 010(2) \& 111(7) \& 100(4)
+\end{center}
+
+Algorithm for Base 10 to Other Bases is as follows:
+\begin{lstlisting}
+    WHILE (the quotient is not zero):
+        Divide the decimal number by the new base
+        Make the reminder the next digit to the left in the answer
+        Replace the decimal number with the quotient
+\end{lstlisting}    
+This algorithm shows that:
+\begin{itemize}
+    \item The production of new number is \textbf{from right to left}    
+    \item Quotient is repeatedly used, reminder is the \textbf{answer}
+\end{itemize}
+
+some definitions about bit:
+\begin{itemize}
+    \item binary digit: A digit in the \textbf{binary number} system
+    \item bit: Binary digit
+    \item byte: \textbf{Eight} binary digits
+    \item word: A group of one or more \underline{bytes} \newline
+    \emph{the number of bits in a word = word length of the computer}
+\end{itemize}
+
+\section{Chapter 3: Data Representation}
+
+
+
+\end{document}
