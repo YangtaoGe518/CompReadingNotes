@@ -199,4 +199,94 @@ Noticed that:
     \item More detail method of computing the Floating point is \textbf{NOT} included in this book
 \end{itemize}
 
+\subsection{Representing Text}
+\underline{Finite} number of characters $\rightarrow$ list all of them $\rightarrow$ represent in binary \newline
+But it is only \textbf{English}, Other language has other characters.
+
+\underline{ASCII} $\xrightarrow{Only\ for}$ English, \underline{Unicode} $\xrightarrow{comprimise}$ other language
+
+\emph{Character set} is a list of character and the codes used to represent each one.
+
+\subsubsection{Character Set}
+Two kinds of character sets are used:
+\begin{itemize}
+    \item ASCII: \textbf{8} bits are used
+    \item Unicode: \textbf{16} bits are used 
+\end{itemize}
+Notice that:
+\begin{itemize}
+    \item ASCII will not affect Unicode
+    \item ASCII $\xrightarrow{Subset}$ Unicode \newline
+    i.e. first eight bits are representing original ASCII
+\end{itemize}
+
+\subsubsection{Text Compression}
+Three kinds of ways are possible for text compression:
+\begin{itemize}
+    \item Keyword Encoding: Replacing a frequently used word with a \textbf{single} character \newline
+    Limitations:
+    \begin{itemize}
+        \item the character is already in the text $\rightarrow$ meaning confusing
+        \item Upper \& Lower Case problem
+        \item Frequent words are usually \textbf{short}
+    \end{itemize}
+    \item Run-length Encoding: Replacing a long series of a repeated character with a count of repetition\newline
+    i.e. $String = Flag + Repetition + Times$ \newline
+    e.g. AAAAAAA = *A7 \newline
+    Limitations:
+    \begin{itemize}
+        \item worthless to encode repetitions less than \textbf{Three}
+        \item Use ASCII digit to represent the ``Times''
+    \end{itemize}
+    \item Huffman Encoding: Using a variable-length binary string to represent a character
+    Limitations:
+    \begin{itemize}
+        \item one string cannot \textbf{prefix} the other string
+        \item Encoding only focusing on particular text
+    \end{itemize}
+\end{itemize}
+
+\subsection{Representing Audio Data}
+Sound is \textbf{Analog} $\xrightarrow{Digitalize}$ computer signals $\xrightarrow{sampling}$ distinct voltage levels $\rightarrow$ Hardware
+
+\emph{sampling} is periodically measure the voltage of the signal and record the appropriate numeric value
+
+MP3 is the \textbf{most common} audio format in the world, which employs both \underline{lossy} and \underline{lossless} compression
+
+\subsection{Representing Images and Graphics}
+Representing colour:
+\begin{itemize}
+    \item \textit{HiColor}: 16-bit color depth\newline
+    i.e. $C = R(5) + G(5) + B(5) + 1$
+    \item \textit{TrueColor}: 24-bit color depth\newline
+    i.e. $C = R(8) + G(8) + B(8)$  (0-255 each)
+\end{itemize}
+
+Some definitions abot digital images and Graphics:
+\begin{itemize}
+    \item Pixel: Individual dots used to represent a picture stands for picture element
+    \item Resolution: The number of pixel used to represent a picture 
+    \item Raster-graphics format: storing image information pixel by pixel \newline
+    e.g. GIF, BMP, JPEG
+\end{itemize}
+
+Four types of formats:
+\begin{itemize}
+    \item BMP: Bitmap file\newline
+    Characteristic: strightforward, very large(record colour \underline{pixel by pixel})
+    \item GIF: Graphics Interchange Format\newline
+    Characteristic: \textbf{256} colours only, can do \textbf{animation}
+    \item JPEG: reduings the size of image but more colourful
+    \item PNG: Portable Network Graphics\newline
+    Characteristic: Editable, but not animations
+\end{itemize}
+
+\subsection{Representing Video}
+\emph{Video codec} means COmpressor/DECompressor i.e. shrink the size and play on a computer or over Network
+
+Two types of compression(unimportant, detail needs references):
+\begin{itemize}
+    \item temporal: Based on differences between \textbf{consecutive frames}
+    \item spatial: Base on the same compression techniques used for still images
+\end{itemize}
 \end{document}
