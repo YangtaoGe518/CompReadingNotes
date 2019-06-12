@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Objects and Classes}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction to Object-Oriented Programming}
+What is Object-Oriented Programming:\newline
+Programming with several \textbf{objects}, each object has a specific functionality
+which exposed to its users, but \underline{a hidden implementation}
+
+Two Ways of thinking:
+\begin{itemize}
+    \item Traditional: algorithms $\rightarrow$ data structures\newline
+    Note: fine for small problems but \textit{cannot} handle large problems.
+    \item Morden: data structures $\rightarrow$ algorithms\newline
+    Note: More efficient to \textbf{store} data first then \textbf manipulate them
+\end{itemize}
+
+\subsection{Classes}
+Class $\xrightarrow{Construct}$ Instance $\xleftarrow{Use}$ program
+
+\textbf{Encapsulation} is the key of OOP:
+\begin{itemize}
+\item \textbf{Definition}: It is combining data and behavior in one package and 
+hiding the implementation detail from the users of the object
+\item \textbf{How}: methods \emph{never} directly access instance field in a class than its own
+i.e. ``Black Box behaviour''
+\end{itemize}
+
+\subsection{Objects}
+Three characteristics:
+\begin{itemize}
+    \item behaviour:  what can it do + what can be done to it
+    \item state: how does the object react when use its method
+    \item identity: how is the object distinguish from others
+\end{itemize}
+
+\subsection{Identifying Classes}
+A Common begin of OOP design: \underline{Identify} the classes and \underline{Add} methods to sperate classes
+
+Rule of Naming:
+\begin{itemize}
+    \item Class Name: Nouns $\rightarrow$ What it is 
+    \item Method Names: Verbs $\rightarrow$ What can it do
+\end{itemize}
+
+\subsection{Relationships between classes}
+Common Relations are:
+\begin{itemize}
+    \item[\textbf{dependence}] ``uses-a'' Express a relationship one class manipulates another class
+    \item[\textbf{aggregation}] ``has-a'' Express a relationship specifying the whole and its parts
+    \item[\textbf{inheritance}] ``is-a'' Express a relationship between a more special and a more general class
+\end{itemize}
+
+UML(Unified Modeling Language) notations aree used to expressed the relationship by diagram\newline
+Ref: \underline{p.131 Core Java, COMP0004 Note}
+
+\section{Using Predefined Classes}
+\subsection{Objects and Object Variables}
+A constructor is a \textbf{special method} whose purpose is to \underline{construct} and \underline{initialize} objects 
+
+Key facts between Object Variables and Objects:
+\begin{itemize}
+    \item a variable called ``deadline'' with type ``Date'' is not a object but a variable
+    \item object variables need to be initialized
+    \item object variables doesen't contains an object, but it only \emph{refers} to an object
+    \item Explicitly, an object variable to \textbf{null} to indicate that it currently refers to no object
+\end{itemize}
+
+Two ways of INIT:
+\begin{itemize}
+    \item \textit{deadline = new Date();} refers to newly constructed object
+    \item \textit{deadline = birthdate;} refers to an existing object
+\end{itemize}
+
+\subsection{The `LocalDate' Class of the Java Library}
+\textit{Ref: pp. 135-137 Core Java}
+\subsection{Mututator and Accessor Methods}
+Definitions:
+\begin{itemize}
+    \item Mutator method: method which will change its own original value and return
+    \item Accessor method: method which will \textbf{not} modify its original value  
+\end{itemize}
+
+
+
+\end{document}
