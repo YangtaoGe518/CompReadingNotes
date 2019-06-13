@@ -215,5 +215,73 @@ Some Features of `Final': (needs more reading)
     i.e. \emph{immutable class} means \underline{none} of its method ever mutate its object
 \end{itemize}
 
+\section{Static Fields and Methods}
+\subsection{Static Fields}
+\underline{Definition}: If you define a field \emph{static}, then thereis only one such field per \textbf{class}
+(Not a instance)
+
+Usually, it performs as a \textit{counter}, which indicates how many instances have been created.\newline
+e.g.
+\begin{lstlisting}[language=Java]
+Class Employee{
+    private static int nextId = 1;  //a static field
+    private int id; 
+
+    public void setId(){
+        id = nextId;
+        nextId++;
+    }
+}
+\end{lstlisting}
+
+Here, id belongs to each instance, but nextId belongs to the `\textbf{class Employee}'
+
+\subsection{Static Constants}
+Common to use `static' in constants:
+\begin{itemize}
+    \item \textbf{pi}: `public static final double PI = 3.1415926535...'
+    \item \textbf{out}: `public static final PrintStream out = ...' i.e. this we commenly used 'System.out.println()'
+\end{itemize}
+
+Noticed that it is \underline{bad} to have public fields but it is \underline{good} to have public constants (usually tagged with `\textit{static final}')
+
+\subsection{Static Methods}
+\underline{Definition}: methods don't have a \textit{this} parameter(with no Implicit parameter)\newline
+i.e.
+\begin{itemize}
+    \item static methods of \textit{Employee class} \underline{cannot} access the \emph{id} instance field
+    \item static methods of \textit{Employee class} \underline{can} access a static field.
+    \begin{lstlisting}[language=Java]
+    int n = Employee.getNextId();
+    \end{lstlisting}
+\end{itemize}
+
+Two situations to use Static method: when a method
+\begin{itemize}
+    \item doesn't need to access the object state(i.e. get info from Explicit paras)\newline
+    e.g. `Math.Pow'
+    \item only needs to \textit{access} static field of the class\newline
+    e.g. `Employee.getNextId'
+\end{itemize}
+
+\subsection{Factory Methods}
+\textit{Ref: pp.159-160} more reading needed
+
+Why using Factory methods rather than constructors:
+\begin{itemize}
+    \item can't give \underline{diffrent} two names to constructors
+    \item can't vary the \textbf{type} of the constructed object
+\end{itemize}
+
+\subsection{The main Method}
+\emph{main} method is a static method.
+
+Every class can have a main method for \underline{unit test}:
+\begin{itemize}
+    \item if testing Employee class in \textit{isolation} -- `java Employee'
+    \item if it is a part of large program -- `java Application'
+\end{itemize}
+
+
 
 \end{document}
