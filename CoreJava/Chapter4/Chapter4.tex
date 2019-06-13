@@ -93,6 +93,127 @@ Definitions:
     \item Accessor method: method which will \textbf{not} modify its original value  
 \end{itemize}
 
+\section{Defining Your Own Classes}
+\subsection{Employee class}
+Basic Structures of A Non-Main Class:
+\begin{itemize}
+    \item fields
+    \item constructors i.e. could more than one constructor be found 
+    \item methods
+\end{itemize}
+
+Source file(\textit{.java}) $\xrightarrow{compile}$ Compiled file(\textit{.class})
+
+Example of \emph{Employee class} is as follows:
+\lstinputlisting[language=Java]{employee.java}
+
+\subsection{Use of Multiple Source Files}
+Two ways of execute source Files:
+\begin{itemize}
+    \item ``javac Employee*.java'': all source files matching the wildcard will be comiled into class files
+    \item ``javac EmployeeTest.java'': Find all classes mentiened in `EmployeeTest' Class, Then compiles it
+\end{itemize}
+
+\subsection{Dissecting the Employee Class}
+public and private:
+\begin{itemize}
+    \item public: any methods in any class can call the method tagged with `public'
+    \item private: only the methods that can access these instance fields or methods are in the \textit{Employee} class itself
+\end{itemize}
+
+\subsection{First Steps with Constructors}
+Some Features of Constructors:
+\begin{itemize}
+    \item has the \textbf{name} as the class
+    \item can only be called in \textbf{conjunction} with \emph{new} operator\newline
+    i.e. james.Employee("James Bond") is \textbf{WORNG}
+    \item can take zero, one, or more parameters
+    \item has \textbf{no} return values
+\end{itemize}
+
+\subsection{Declaring Local Variable with `Var'}
+\emph{var} keyword can replace with their type.(Valid from Java 10)
+and it can only be used with \emph{local} variable inside methods.\newline
+e.g.
+\begin{lstlisting}[language=Java]
+Employee harry = new Employee("Harry Porter", 50000, 1989, 10, 1)
+\end{lstlisting}
+is the valid as:
+\begin{lstlisting}[language=Java]
+var harry = new Employee("Harry Porter", 50000, 1989, 10, 1)
+\end{lstlisting}
+
+\subsection{Working with null Reference}
+When using \emph{null} reference three cases could possible:
+\begin{itemize}
+    \item \textit{NullpointerException}: end of execution\newline
+    two advantages:
+    \begin{itemize}
+        \item has the description of the problem
+        \item finds the location of the problem
+    \end{itemize}
+    \item ``permissive'': turn a null argument to non-null\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    name = Objects.requireNoneNullElse(n, "unknown")
+    \end{lstlisting}
+    \item ``tough love'': reject a null argument\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    name = Objects.requireNoneNull(n, "Error with Null")
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Implicit and Explicit Parameters}
+Definition of these two parameters:
+\begin{itemize}
+    \item Implicit: the para appears \textit{before} the method name
+    \item Explicit: the para \textit{in the paranthseses}
+\end{itemize}
+For example
+\begin{lstlisting}[language=Java]
+    number007.raiseSalary(5)
+\end{lstlisting}
+Here, \emph{number007} is Implicit para, \emph{5} is Explicit para.
+
+\subsection{Benefits of Encapsulation}
+Basic principle of Encapsulation:
+\begin{itemize}
+    \item A private data field
+    \item Accessor (getter)
+    \item Mutator (setter)
+\end{itemize}
+
+Two Benefits:
+\begin{itemize}
+    \item can \underline{change internal implementation} without affecting any code other than the method of the class
+    \item can perform error checking which can protect from any unexpected input
+\end{itemize}
+
+\subsection{Class-Based Access Privileges}
+Method could be valid for \textit{accessing the private data} of \textbf{all objects of its class} \newline
+e.g. equal method:
+\begin{lstlisting}[language=Java]
+Class Employee{
+    ...
+    public boolean euqals(Employee other){
+        return name.equals(other.name)
+    }
+}   
+\end{lstlisting}
+N.B. this method call name of the current object and and name of `other' which is another private field 
+
+\subsection{Private Methods}
+Usually are used in `help functions' to prevent accidentally call
+
+\subsection{Final Instance Field}
+Some Features of `Final': (needs more reading)
+\begin{itemize}
+    \item field value shoud be set after \textbf{the end of every constructor}
+    \item the field may not be modified again
+    \item usually used for \textit{primitive type fields} or \textit{immutable classes}\newline
+    i.e. \emph{immutable class} means \underline{none} of its method ever mutate its object
+\end{itemize}
 
 
 \end{document}
