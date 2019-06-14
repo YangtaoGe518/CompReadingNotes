@@ -282,6 +282,152 @@ Every class can have a main method for \underline{unit test}:
     \item if it is a part of large program -- `java Application'
 \end{itemize}
 
+\section{Method Parameters}
+\underline{Definition}
+\begin{itemize}
+    \item \textbf{call by value}: gets the \textit{value} that the caller provides
+    \item \textbf{call by reference}: gets the \textit{location} of the variable that the caller provides
+\end{itemize}
 
+\underline{***\emph{Java Only use \textbf{call by value}}} \textit{(ref: pp.166-167 -- swap method)}
+
+Two cases in java of method parameters:
+\begin{itemize}
+    \item \textbf{parameter variables}(Primitive types): methods \textit{cannot} modify the contents
+    of any parameters variables passed to it.\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    public static void tripleValue(double){
+        x = x * 3
+    }
+    double percent = 10
+    tripleValue(percent)
+    \end{lstlisting}
+    \underline{what happens:}
+    \begin{enumerate}
+        \item x is init with a a copy of the value `percent' (x = 10)
+        \item x is tripled(x = 30), percent remains (percent = 10)
+        \item method ends, x is no longer used
+    \end{enumerate}
+
+    \item \textbf{Object variables}(Object references): it is easily \textit{possible} to implement Methods
+    that change the state of an object parameter.\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    public static void tripleSalary(Employee x){
+        x.raiseSalary(200)
+    }
+    harry = new Employee(...)
+    tripleSalary(harry)
+    \end{lstlisting}
+    \begin{enumerate}
+        \item x is init with \textit{a copy of} value of harry (object refernece)
+        \item `raiseSalary' method is applied to the object refernece(the object \textit{harry} referred to get raised salary)
+        \item methods ends, x is no longer used \textbf{BUT} \textit{harry} continues to refer to the employee object
+    \end{enumerate}
+\end{itemize}
+
+\section{Object Construction}
+This section mentiends mechanisms for writing constructors
+\subsection{Overloading}
+\underline{Definition:} Overloading occurs if several methods have the \textbf{same} name but \textbf{different} parameters
+i.e. constructor is a special \underline{method}
+
+the compile-time error occurs when:
+\begin{itemize}
+    \item there is \textit{no match} at all
+    \item there is not one that is \textit{better} than \underline{all} others (?)
+\end{itemize}
+
+\subsection{Default Field Initialization}
+The Default init:
+\begin{itemize}
+    \item number: \emph{0}
+    \item boolean: \emph{false}
+    \item object ref: \emph{null}
+\end{itemize}
+
+\subsection{The Constructor with No Arguments}
+Two cases:
+\begin{itemize}
+    \item No constructor at all: get a \emph{free} \underline{no argument} constructor
+    \item User defined constructor:
+    \begin{itemize}
+        \item have several Constructor: one with no argument
+        \item can't use no argument mechanism
+    \end{itemize}
+\end{itemize}
+
+\subsection{Explicit Field Initialization}
+Two Ways of field init:
+\begin{itemize}
+    \item Assign a value:
+    \begin{lstlisting}[language=Java]
+    Class Employee{
+        private String name = ``'';
+    }   
+    \end{lstlisting}
+    \item Method call:
+    \begin{lstlisting}[language=Java]
+    Class Employee{
+        private static int nextId;
+        private int id = assignId();
+        ... 
+        private static int assignId(){
+            int r = nextId;
+            nextId++;
+            return r;
+        }
+    }
+    \end{lstlisting}
+\end{itemize}
+\subsection{Parameter Names}
+Three types of parameter names:
+\begin{itemize}
+    \item single letter names
+    \item prefix with `a' / `an'
+    \item using \textit{this}\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    public Employee(String name, double salary){
+        this.name = name;
+        this.salary = salary;
+    }
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Calling Another Constructor}
+Using \textit{this} to refer another constructor in the current class.\newline
+e.g.
+\begin{lstlisting}[language=Java]
+public Employee(double s){
+    // calls Employee(String, double)
+    this("Employee #" nextId, s);
+    nextId++;
+}
+\end{lstlisting}
+
+\subsection{Initialization Blocks}
+\underline{3 Types of initialization:}
+\begin{itemize}
+    \item setting value in a constructor
+    \item assigning a value in the declaration
+    \item initialization blocks
+\end{itemize}
+
+\underline{Process of running a constructor:}
+\begin{enumerate}
+    \item The first line of constructor call the another constructor -- execute the second constructor
+    \item Otherwise,
+    \begin{enumerate}
+        \item All data fields are init to \emph{default}
+        \item All field initilizers and init blocks are executed
+    \end{enumerate} 
+    \item Body is executed
+\end{enumerate}
+
+\subsection{Object Destruction and the \emph{finalize} Method}
+Java is \underline{automatic garbage collection} -- \textbf{NO} destructors\newline
+\textit{Ref: p.180 and Chapter 7}
 
 \end{document}
