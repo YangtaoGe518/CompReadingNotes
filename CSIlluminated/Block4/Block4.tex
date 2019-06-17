@@ -1,0 +1,131 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Block 4: The Programming Layer}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Chapter 6: Low-Level Programming Languages and pseudocode}
+\begin{abstract}
+    This Chapter focuses on how to use a `computer system'. The processing of interpreting is a from
+    lowest to more advanced programming language.\newline
+    i.e. machine code $\rightarrow$ assembly language $\rightarrow$ pseudocode\newline
+    * This Chapter is related to ENGF0001(1) 
+\end{abstract}
+
+\subsection{Computer Operations}
+\underline{Definition:} Computer is a programmable electronic device which can \textit{store, retrieve} and \textit{process} data
+
+Four Operations:
+\begin{itemize}
+    \item programmable: manipulate data are stored within the machine along with the data
+    \item store: store data into the memory of the machine
+    \item retrieve: retrieve data from memory of the machine
+    \item process: process data in some way in the arithmetic/logic unit(ALU)
+\end{itemize}
+
+\subsection{Machine Language}
+Just understanding some basic knowlegde about Machine Language is fine
+
+Each type of computer(i.e. CPU) has limited number of machine language to be executed.
+
+\emph{Virtual Computer machine} is A hypothetical machine designed to \textbf{illustrate} important \underline{features} of a real machine
+(i.e. it is not real, just a intimation)
+
+Following subsection uses Pep/8 as a example
+
+\subsubsection{Features of Pep/8}
+65536 bytes in total (i.e. 1 byte = 8 bits)\newline
+Word length is 2 bytes\newline
+ALU is 16 bits\newline
+
+Three components:
+\begin{itemize}
+    \item Program counter(PC): Contains the address of thenext instruction to be executed
+    \item Instruction register(IR): Contains a copy pf the instruction being executed
+    \item Accumulator: a register
+\end{itemize}
+
+address is a \underline{physical representation} of the memory (i.e. address is a \emph{name} of memory),
+\textbf{it is not the actual place for storing data}
+
+The address range is: 0000 -- FFFF (in Hex Decimal)
+
+\subsubsection{Instruction Format}
+Picture \emph{Ref: pp.155-156}
+
+The Two parts of an Instruction:
+\begin{itemize}
+    \item Instruction specifier: 8 bits
+    \item Operand specifier: 16 bits
+\end{itemize}
+
+The \underline{instruction specifier} part of an instruction:
+\begin{itemize}
+    \item Operation code(1-4/1-5): specify which register to use
+    \item Register specifier(5): 0 for register A(Accumulator)
+    \item Addressing mode(6-8): how to interpret the Operand part of the instruction.
+\end{itemize}
+
+Two mode of addressing:
+\begin{itemize}
+    \item Immediate: Operand is in the operand specifier of \underline{the instruction}
+    \item Direct: Operand is \underline{the memory address} named in the operand specifier
+\end{itemize}
+
+\subsubsection{Example Instruction}
+Instruction specifier:\newline
+1 1 0 0 0 0 0 0 \newline
+Operand specifier:\newline
+0 0 0 0 0 0 0 0 0 0 0 0 1 1 1
+
+\underline{Meaning:} under `Immediate Mode', Load the operand into the A register.
+
+\subsubsection{Instruction table}
+\begin{tabular}{|p{3cm}||p{10cm}|}
+    \hline
+    Opcode & Meaning of Instruction\\
+    \hline
+    \hline
+    0000 & Stop execution\\
+    1100 & Load operand into the A register\\
+    1110 & Store the contents of the A register into the operand\\
+    0111 & Add the operand to the A register\\
+    1000 & Substract the operand to the A register\\
+    01001 & Character input to the operand\\
+    01010 & Character output from the operand\\
+    \hline
+\end{tabular}
+
+\subsection{A Program Example}
+\textit{Ref: pp.160-165}
+This section detially metioned about the running process of machine language
+
+\subsection{Assembly Language}
+\underline{Definition:}
+\begin{itemize}
+    \item Assembly language: A low-level programming language in which a mnemonic represents each of the
+    machine-language instruction for a particular computer
+    \item Assembler: A program that \emph{translate} an assembly-language program in machine code
+    \item Assembler directive: \emph{Instructions} to the translating program
+\end{itemize}
+
+N.B. Different Machine has different assembly language.
+
+\underline{Assembly process}\newline
+Program in assembly language $\xrightarrow{input}$ Assembler $\xrightarrow{output}$ Program in machine code
+
+**\emph{Ref: pp.167-174 A lot of references of real code, also refer to ENGF0001(1) coursework}
+
+\subsection{Expressing Algorithms}
+
+\end{document}
