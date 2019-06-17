@@ -127,5 +127,52 @@ Program in assembly language $\xrightarrow{input}$ Assembler $\xrightarrow{outpu
 **\emph{Ref: pp.167-174 A lot of references of real code, also refer to ENGF0001(1) coursework}
 
 \subsection{Expressing Algorithms}
+Using \underline{\textit{Pseudocode}}
+
+\emph{Pseudocode} is a language that follows us to express Algorithms in a clearer form.
+
+\subsubsection{Pseudocode Functionality}
+Grammar rules:
+\begin{itemize}
+    \item Variables: reflect the content in the Algorithms
+    \item Assignment: `Set sum to 0' == `sum $\leftarrow$ 1'
+    \item Input: `Read num'
+    \item Output: `Write \textit{The number of value to read and sum}
+    \item Selection(if-else):
+    \begin{lstlisting}
+        IF(sum < 0)
+            Print error message
+        ELSE
+            Print sum
+    \end{lstlisting}
+    \item Repitition(while):
+    \begin{lstlisting}
+        Set Limit to number of values to sum
+        WHILE (counter < limit)
+            Read num
+            sum <- sum + num
+            counter <- counter + 1
+    \end{lstlisting}
+\end{itemize}
+
+\subsubsection{Writing a Pseudocode Algorithm}
+\textit{Ref: pp.181 -- 185}
+\begin{lstlisting}
+Write ``How many pairs of value are to be entered?''
+Read numOfPairs
+pairsRead <- 0
+WHILE (numberRead < numOfPairs)
+    Write ``Enter two values separated by a blank; return''
+    Read num1
+    Read num2
+    IF (num1 < num2)
+        Print num1, `` '', num2
+    ELSE
+        Print num2, `` '', num1
+    numberRead <- numberRead + 1
+\end{lstlisting}
+
+
+
 
 \end{document}
