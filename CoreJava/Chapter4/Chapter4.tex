@@ -430,4 +430,164 @@ public Employee(double s){
 Java is \underline{automatic garbage collection} -- \textbf{NO} destructors\newline
 \textit{Ref: p.180 and Chapter 7}
 
+\section{Packages}
+\underline{Definition}: \textit{package} is a way of \textbf{grouping} classes in a collection
+\subsection{Package Names}
+Main Reason: guarantee the \underline{uniqueness} of class names.
+
+Usually using \emph{Internet domain} names:\newline
+e.g. \textit{horstmann.com $\rightarrow$ com.horstmann.corejava.Employee}
+
+\subsection{Class Importation}
+The process of thinking:
+\begin{enumerate}
+    \item import everything from a specific package/class: ``\emph{import java.time.*}''\newline
+    (Never use `\emph{java.*}' with a prefix of `java' only)
+    \item importing two classes but access the \underline{same} name: ``\emph{import java.util.Date}''\newline
+    (Add a specific import statement to indicate what you want)
+    \item need both class with the same name: use the \underline{full} package name with every class name
+\end{enumerate}
+
+\subsection{Static Imports}
+Usuall used for Static class method to \textbf{shorten} the prefix\newline
+e.g. \newline
+\emph{Math.sqrt(Math.pow(x,2) + Math.pow(y,2))} should be abbreviated as\newline
+\emph{sqrt(pow(x,2) + pow(y,2))} by `import'\newline
+\emph{import static java.Math.*}
+
+\subsection{Addition of a Class into a Package}
+How: put the name of the package \textit{at the top} of the source file\newline
+e.g.
+\begin{lstlisting}[language=Java]
+package come.horstmann.corejava
+
+public class Employee{
+    ... 
+}
+\end{lstlisting}
+
+Two Cases of Running:
+\begin{itemize}
+    \item Use \underline{unnamed package}: `\emph{javac PackageTest.java}' \newline
+    (running at the base dir only)
+    \item Use \underline{named package:} `\emph{javac com/mycomany/PayrollApp.java}' \newline
+    (running the \textbf{full path} of the dir)
+\end{itemize}
+
+\subsection{Package Access}
+\emph{public} accessor of classes means classes in the same \underline{package} can have abilities to access
+the public class. \newline
+(N.B. \underline{unnamed package} can access --- defaultly has public accessor)
+
+\subsection{The Class Path \& Jar Files}
+It is related to JAR files(\textit{Ref: pp.189-198 \& Chapter 11}) \newline
+Review this section later
+
+Use IDE, automatically done.
+
+\section{Documentation Comments}
+\underline{This section mainly talk about `\emph{javadoc}' tool}
+
+\subsection{Comment Insertion}
+Follow items are extracted:
+\begin{itemize}
+    \item Modules
+    \item Package
+    \item Public Classes and Interfaces
+    \item Public and Protected fields
+    \item Public and Protected Constructor and Methods
+\end{itemize}
+
+The Grammar:
+\begin{itemize}
+    \item Documentation: \textbf{/** somewords */} (contains \textit{free-form text})
+    \item Tags: \textbf{@sometag}
+\end{itemize}
+
+\subsection{Comments Detail}
+\begin{itemize}
+    \item Class: \textit{after} import statement, \textit{directly before} class definition\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+ /**
+   * A {@code Card} object represents a playing card, such
+   * as ``Queen of Hearts''. A card has a suit (Diamond, Heart
+   * Spade or Club) and a value (1 = Ace, 2 ... 10, 11 = Jack,
+   * 12 = Queen, 13 = King)
+   */
+  public class Card{
+   ...
+  }
+    \end{lstlisting}
+
+    \item Method: immediately precede the method that it describes\newline 
+    e.g.
+    \begin{lstlisting}[language=Java]
+ /**
+  * Raise the salary of an employee,
+  * @param byPercent the percentage by 
+  *        which to raise the raiseSalary
+  * @return the amount of the raise
+  */
+  public double raiseSalary(double byPercent){
+    double raise = salary * bypercent / 100
+    salary += raise
+    return raise
+  }
+    \end{lstlisting}
+
+    \item Field: generally for \underline{static constants}\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+ /**
+  * The ``Hearts'' card suit
+  */
+  public static final int HEART = 1;
+    \end{lstlisting}
+\end{itemize}
+ 
+\subsection{General Comments}
+Different Tags:
+\begin{itemize}
+    \item @since \emph{text}: description of the version that introduce the feature
+    \item @author \emph{name}: author's name
+    \item @version \emph{text}: ``version'' entry, description of current version
+    \item @see \emph{reference}: adds a hyperlink or a place in the source code(class, method or variable)
+    \begin{itemize}
+        \item hyperlink:
+        \begin{lstlisting}[language=html]
+        @see <a href=``someWeb''>someLable</a>
+        \end{lstlisting}     
+        \item place in code:\newline
+        \textit{@see com.horstmann.corejava.Employee\#raiseSalary(double)}
+        \item plain text:
+        \textit{@see ``Core Java 2 Volume 2''}
+    \end{itemize}
+    \item @index \emph{entry}: add an entry to the search box
+\end{itemize}
+
+\subsection{Package Comments}
+Add a separate file in each \underline{package directory}
+Two choices:
+\begin{itemize}
+    \item java file: ``package-info.java'' \newline
+    /** output message */ + package
+    \item HTML file: ``package.html'' 
+    \begin{lstlisting}[language=html]
+    <body> ... </body>
+    \end{lstlisting}        
+\end{itemize}
+
+\subsection{Comment Extraction}
+Steps:
+\begin{enumerate}
+    \item cd to the source file dir(contains `\emph{com.}' subdir)
+    \item produce:
+    \begin{itemize}
+        \item `\emph{javadoc -d docDir nameOfPackage}': single package
+        \item `\emph{javadoc -d docDir nameOfPackage1 nameOfPackage2}': Multiple Packages
+        \item `\emph{javadoc -d docDir *.java}': unnamed package
+    \end{itemize}
+\end{enumerate}
+\textit{Ref: javadoc in Oracle website}
 \end{document}
