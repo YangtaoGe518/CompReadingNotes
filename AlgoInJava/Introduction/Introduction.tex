@@ -4,7 +4,14 @@
 \usepackage{listings}
 \usepackage{mathtools}
 \usepackage{hyperref}
+\usepackage{amsthm}
 
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\newtheorem{theorem}{Theorem}[section]
+
+\DeclarePairedDelimiter \abs{\lvert}{\rvert} % short cut for absolute value
 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{0.5em}
@@ -61,5 +68,99 @@ N.B. detail contents for every chapter are in the previous section
 \subsection{Mathematics Review}
 \emph{Ref: pp.3-8}
 
+\subsubsection{Exponents}
+$$X^AX^B = X^{A+B}$$
+$$\frac{X^A}{X^B} = X^{A-B}$$
+$$(X^A)^B = X^{AB}$$
+$$X^N + X^N = 2X^N \neq X^{2N}$$
+$$2^N + 2^N = 2^{N+1}$$
+
+\subsubsection{Logarithms}
+In computer science, all Logarithms are to the `\emph{base 2}' unless specified otherwise.
+
+\theoremstyle{definition}
+\begin{definition}
+    $X^A = B$ iff $\log_{X}B = A$
+\end{definition}
+
+\begin{theorem}
+    $$\log_{A}B = \frac{\log_{C}B}{\log_{C}A};\ A,B,C > 0, A \neq 1$$
+\end{theorem}
+
+\begin{theorem}
+    $$\log_{}AB = \log_{}A + \log_{}B;\ A, B > 0$$
+\end{theorem}
+
+
+\subsubsection{Series}
+\begin{theorem}[Sum of Geometric Progression]
+    $$\sum_{i=0}^{N} A^{i}= \frac{A^{N+1} - 1}{A - 1}$$
+\end{theorem}
+
+\begin{theorem}[Infinite Geometric Series]
+    $$\sum_{i=0}^N A^i \leq \frac{1}{1-A}$$ 
+Hence, when $N \rightarrow \infty$, we have:
+    $$\sum_{i=0}^{\infty} ar^i = \frac{a}{1-i}$$
+\end{theorem}
+
+\begin{theorem}[Sum of Arithmetic Series]
+    $$\sum_{i=1}^N i = \frac{N(N+1)}{2} \approx \frac{N^2}{2}$$
+\end{theorem}
+
+\begin{theorem}[Inference of Arithmetic Progression]
+    $$\sum_{i=1}^N i^2 = \frac{N(N+1)(2N+1)}{2} \approx \frac{N^3}{3}$$
+    $$\sum_{i=1}^N i^k \approx \frac{N^{k+1}}{\abs{k+1}};\ k \neq -1$$
+\end{theorem}
+
+\begin{theorem}[Harmonic Numbers]
+    $$H_N = \sum_{i=1}^N \frac{1}{i} \approx \log_{e}N$$
+The error is called \textbf{Euler's constant}, which value is $\gamma \approx 0.57721566$
+\end{theorem}
+
+\subsubsection{Modular Arithmetic}
+\begin{definition}
+    We say A os \textit{congruent} to B modulo N, written in $A \equiv B$ (mod N)
+\end{definition}
+
+\begin{theorem}
+If a prime number N divides a product of two numbers, it divides at least one of the two numbers 
+    $$ab \equiv 0\ (mod N)\ \ iff\ \ a \equiv 0\ (mod N)\ or\ b \equiv 0\ (mod N)$$
+\end{theorem}
+
+\begin{theorem}
+    If N is prime, then the equation $ax \equiv 1$ (mod N) has a \textit{unique} solution (mod N) for
+    all $0 < a < N$
+
+    This solution $0 < x < N$ is the \underline{\emph{multiplicative inverse}}
+\end{theorem}
+
+\subsubsection{The P Word}
+Three common ways of proving statements in data structure analysis:
+\begin{itemize}
+    \item Proof by induction
+    \item Proof by contradiction
+    \item Proof by counterexample
+\end{itemize}
+
+\emph{Ref: pp.6 - 8 \& COMP 0147 \& COMP 0003(1)}
+
+\subsection{A Brief Introduction to Recursion}
+\emph{Ref: pp. 8-12 \& COMP 0002 Haskell \& COMP0005 Algorithm}
+
+Basic Rules of recursion:
+\begin{itemize}
+    \item \textbf{Base cases}: you must have some base cases, which can be solved \textit{without} recursion
+    \item \textbf{Making progress}: For the case that are to besolved recursively, the recursive call must
+    always be to a case that makes progress toward a base case (from base case)
+    \item \textbf{Design rule}: Assume that all the recursive calls work
+    \item \textbf{Compound interest rule}: Never duplicate work by solving the same instance of a problem in separate 
+    recursive calls 
+\end{itemize}
+
+\subsection{Implementing Generic Components}
+\emph{Review after finish Core Java `Generic Programming'}
+
+\subsection{Function Objects}
+\emph{Review after finish Core Java `Generic Programming'}
 
 \end{document}
