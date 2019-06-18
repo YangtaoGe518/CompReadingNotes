@@ -115,14 +115,14 @@ e.g.2 (\textit{Not every employee is a Manager})
 \begin{enumerate}
     \item know all possible candidates for the method to be called
     \item knows the name and parameter types of the method
-    \item \label{3} decide `\emph{static binding}' or `\emph{dynamic binding}'
+    \item \label{decision} decide `\emph{static binding}' or `\emph{dynamic binding}'
     \begin{itemize}
         \item \textbf{static}: has modifier `private', `static', `final' or a constructor
         \item \textbf{dynamic}: depends on the actual type of the `\textbf{implicit} parameter' 
     \end{itemize}
     \item running the `static' or `dynamic':
     \begin{itemize}
-        \item static: run the method call indicated by step \ref{3}.
+        \item static: run the method call indicated by step \ref{decision}.
         \item dynamic: call the verision of the method that is appropriate for the `\textit{actual}' type by `\textbf{method table}'
         (method table list all \textit{method signatures} and \textit{actual methods to be called})\newline
         e.g. `\emph{e.getSalary()}'
@@ -145,5 +145,108 @@ Manager:
 \end{itemize}
 
 \subsection{Preventing Inheritance: \emph{Final} Classes and Method}
+\underline{Definition:} Classes that cannot be \underline{extended} are called \textit{final} classes. 
+(i.e. Preventing others from forming a `subclass' of one of your classes)\newline
+e.g.
+\begin{lstlisting}[language=Java]
+    public final class Executive extends Manager{
+        ...
+    }
+\end{lstlisting}
+
+\underline{Definition:} Method that cannot be \underline{overriden} are called \textit{final} methods.
+
+All methods in a `\textit{final} class' are automatically \textit{final}
+
+The \textbf{Only} good reason to make classes/methods \emph{final} is:\newline
+\underline{To make its semantics cannot be changed in a subclass}
+
+\underline{Definition:} If a method is not overriden, and it is short,
+then a compiler can optimize the method call. It is called \emph{inlining} (\textit{Ref: pp.222-223 \& COMP0012 Compiler})
+
+\subsection{Casting}
+\underline{Definition:} The process of \textbf{forcing} a conversion from one type to another.\newline
+e.g.
+\begin{lstlisting}[language=Java]
+    double x = x = 3.406;
+    int nx = (int) x;
+\end{lstlisting}
+
+Some features to consider about:
+\begin{itemize}
+    \item Cast only within an \underline{inheritance hierarchy}
+    \item Use `\emph{instanceof}' to check before casting from a superclass to a subclass\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    if (staff[1] instanceof Manager){
+        boss = (Manager) staff[1];
+    }
+    \end{lstlisting}
+\end{itemize}
+
+The reason for doing a cast is \underline{use a object in its full capacity} (i.e. use special method `\emph{setBouns()}')
+
+\subsection{Abstract Classes}
+\underline{Definition:} \emph{Abstract} (class): is a superclass that cannot be instantiated 
+and is used to state or define general characteristics
+
+Some features to remember:
+\begin{itemize}
+    \item using `\emph{abstract}' $\rightarrow$ don't need to implement the method at all\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    public abstract class Person{
+        private String name;
+        public Person(String name){
+            this.name = name;
+        }
+        // just a signature
+        public abstract String getDescription();
+        
+        public String getName(){
+            return name;
+        }
+    }
+    \end{lstlisting}
+
+    \item when extending a abstract class -- 2 choices:
+    \begin{itemize}
+        \item left methods undefined $\rightarrow$ tag the subclass `\emph{abstract}'
+        \item define \underline{all} method $\rightarrow$ it is a normal subclass(concrete one)
+    \end{itemize}
+
+    \item Class can be tagged as `\emph{abstract}' with no abstract methods
+    \item Abstract class \textbf{cannot} be instantiated $\rightarrow$ no objects can be created
+    \item Abstract class \textbf{can} be \emph{object variables}, but need to refer to an object of \textit{concrete subclass}\newline
+    e.g.
+    \begin{lstlisting}[language=Java]
+    Person p = new Student(`Yangtao.G',`Comp Sci');
+    \end{lstlisting}
+\end{itemize}
+
+\textit{Ref: pp.227-229 \& Chapter 6 Interfaces}
+
+\subsection{Protected Access}
+When to use Protected:
+\begin{itemize}
+    \item field: two cases
+    \begin{itemize}
+        \item restrict a method to subclasses only
+        \item allow subclass methods to access a superclass (less common)
+    \end{itemize}
+    N.B. Protected field is accessible by any class \underline{in the same package}, so be cautious when using item
+    \item method: the subclasses can be trusted to use the method correctly.(more common to use)
+\end{itemize}
+
+\underline{\textbf{Summary of four access modifiers:}}
+\begin{itemize}
+    \item private: in Class only
+    \item public: by the world, everywhere
+    \item protect: in the package and all subclasses
+    \item `no modifier': default is accessible in the package 
+\end{itemize}
+
+
+
 
 \end{document}
