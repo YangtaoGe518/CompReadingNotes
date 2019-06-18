@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Inheritance}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Classes, Superclasses and Subclasses}
+These relationships are usually related to an `\textit{is-a}' relationship.
+(i.e. Manager is an employee)
+
+\subsection{Defining Subclasses}
+\underline{Basic Grammar:}
+\begin{lstlisting}[language=Java]
+    public class Manager extends Employee{
+        ... 
+    }
+\end{lstlisting}
+
+Some feature of using `\textbf{extends}':
+\begin{itemize}
+    \item Subclasses $\xrightarrow{extends}$ Superclasses
+    \item Subclasses have \emph{more} functionalities than their Superclasses
+    \item Subclasses can use method and field from \textit{Superclasses} \newline
+    (i.e. new avaliable = original + extended)
+    \item point out the differences between original and new classes (\emph{\textbf{Factoring}})
+\end{itemize}
+
+\subsection{Overriding Methods}
+\underline{Definition:} In a subclasses, it has the same \textbf{method (name + parameter)} as its superclass,
+the functionalities are different from its original one. \newline
+it is different from `\textit{overloading}' (same name + different parameter) \newline
+e.g.
+\begin{lstlisting}[language=Java]
+    public double getSalary(){
+        double baseSalary = super.getSalary();
+        return baseSalary + bonus;
+    }
+\end{lstlisting}
+
+Some notices:
+\begin{itemize}
+    \item we have no access to `\textit{salary}' (private field in Employee)
+    \item we cannot plainly use `\textit{getSalary()}' (it means call it self -- infinit loop)
+    \item `\textit{super}' here is not a reference to an object,\newline
+     it is just for \underline{invoking superclass method}  
+\end{itemize}
+
+\subsection{Subclass Constructors}
+The \textit{second} way of using `super' is \underline{build contructors}:
+\begin{lstlisting}[language=Java]
+public Manager(String name, double salary, 
+                int year, int month, int day){
+    super(name, salary, year, month, day);
+    bonus = 0;
+}
+\end{lstlisting}
+
+N.B. When \emph{super} Constructor is not used, no-argument Constructor is applied
+
+\underline{Summary of `this' and `super':}
+\begin{itemize}
+    \item \textbf{this}:
+    \begin{itemize}
+        \item denote a reference to the implicit parameter
+        \item call another constructor of the \underline{same class}
+    \end{itemize}
+    \item \textbf{super}:
+    \begin{itemize}
+        \item invoke the super class method
+        \item invoke a \underline{superclass} constructor
+    \end{itemize}
+    \item when both used for `constructor': be careful about \textit{this class(this)} or \textit{superclass(super)}
+\end{itemize}
+
+**\emph{polymorphism} means an \underline{object variable} can refer to \textit{multiple} actual types.(\textit{Ref: p.217 \& subsection \ref{polymorphism}})
+
+\subsection{Inheritance Hierarchies}
+Inheritance can have \textbf{more than one} layer, \newline
+e.g. Employee $\leftarrow$ Manager $\leftarrow$ Executive (this path is `\textit{inheritance chain}')
+
+\textit{Ref: pp.216-217, especially Figure 5.1}
+
+\subsection{Polymorphism} \label{polymorphism}
+\emph{polymorphism} means an \underline{object variable} can refer to \textit{multiple} actual types.
+(i.e. every Manager is an employee, but not every employee is a Manager)\newline
+e.g.1 (\textit{Every Manager is employee})
+\begin{lstlisting}[language=Java]
+    Employee e;
+    e = new Employee(...); //Employee Object expected
+    e = new Manager(...); // Manager is a subclass of Employee
+\end{lstlisting}
+
+e.g.2 (\textit{Not every employee is a Manager})
+\begin{lstlisting}[language=Java]
+    Manager boss = new Manager(...);
+    Employee[] stafflist = new Employee[3];
+    stafflist[0] = boss;
+
+    boss.setBonus(5000); // correct
+    staff[0].setBonus(5000); //ERROR
+\end{lstlisting}
+
+\subsection{Understanding Method calls}
+\underline{Understand what happends:}
+\begin{enumerate}
+    \item know all possible candidates for the method to be called
+    \item knows the name and parameter types of the method
+    \item \label{3} decide `\emph{static binding}' or `\emph{dynamic binding}'
+    \begin{itemize}
+        \item \textbf{static}: has modifier `private', `static', `final' or a constructor
+        \item \textbf{dynamic}: depends on the actual type of the `\textbf{implicit} parameter' 
+    \end{itemize}
+    \item running the `static' or `dynamic':
+    \begin{itemize}
+        \item static: run the method call indicated by step \ref{3}.
+        \item dynamic: call the verision of the method that is appropriate for the `\textit{actual}' type by `\textbf{method table}'
+        (method table list all \textit{method signatures} and \textit{actual methods to be called})\newline
+        e.g. `\emph{e.getSalary()}'
+        \begin{enumerate}
+            \item fetches the method table for the actual type of `\textit{e}'
+            \item lookup for defining classs of the signatures `\textit{getSalary()}'
+            \item get the correct method
+        \end{enumerate}
+    \end{itemize}
+\end{enumerate}
+i.e. \textbf{Method table} is: \newline
+\underline{Exp:} For actual type `Manage' the following signatures are corresponding to the catual method call.\newline
+Manager:
+\begin{itemize}
+    \item getName() $\rightarrow$ Employee.getName()
+    \item getSalary() $\rightarrow$ Employee.getSalary()
+    \item getHireDay() $\rightarrow$ Employee.getHireDay()
+    \item raiseSalary(double) $\rightarrow$ Employee.raiseSalary()
+    \item setBonus(double) $\rightarrow$ Manager.setBonus()
+\end{itemize}
+
+\subsection{Preventing Inheritance: \emph{Final} Classes and Method}
+
+\end{document}
