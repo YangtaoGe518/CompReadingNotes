@@ -33,6 +33,81 @@ This section discusses about:
 \end{itemize}
 \end{abstract}
 \section{Mathematical Background}
+Four definitions of the framework:
+\begin{definition}[Upper bound]
+    $T(N) = O(f(N))$ if there are positive \emph{constants} $c$ and $n_0$ such that $T(N) \leq cf(N)$
+    when $N \geq n_0$
+\end{definition}
 
+\begin{definition}[Lower bound]
+    $T(N) = \Omega(g(N))$ if there are positive \emph{constants} $c$ and $n_0$ such that $T(N) \geq cg(N)$
+    when $N \geq n_0$
+\end{definition}
+
+\begin{definition}[Envelope]
+    $T(N) = \Theta(h(N))$ iff $T(N) - O(h(N))$ and $T(N) = \Omega(h(N))$
+\end{definition}
+
+\begin{definition}
+    $T(N) = o(p(N))$ if for \textbf{\textit{all}} positive constants $c$ there exists an $n_0$ such that
+    $T(N) < cp(N)$ when $N > n_0$.
+\end{definition}
+\emph{Ref: p.30 for detail theorem}
+
+Typical growth rates:\newline
+\begin{tabular}{|p{3cm}|p{5cm}|}
+    \hline
+    Function & Name\\
+    \hline
+    \hline
+    $c$ & Constant \\
+    $\log_{}N$ & Logarithmic \\
+    $\log^2_{}N$ & Log-Squared \\
+    $N$ & Linear \\
+    $N\log_{}N$ & \ \\ 
+    $N^2$ & Quadratic \\
+    $N^3$ & Cubic \\
+    $2^N$ & Exponential \\ 
+    \hline
+\end{tabular}
+
+Some Theorem from the definition:
+\begin{theorem}
+    If $T_1(N) = O(f(N))$ and $T_2(N) = O(g(N))$, then:
+    \begin{enumerate}
+        \item $T_1(N) + T_2(N) = O(f(N) + g(N))$
+        \item $T_1(N) * T_2(N) = O(f(N) * g(N))$
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    If $T(N$) is a polynomial of degree $k$, then $T(N) = \Theta(N^k)$
+\end{theorem}
+
+\begin{theorem}
+    $\log^k_{}N = O(N)$ for any constant $k$, which tell us `Logarithms grow very slowly
+\end{theorem}
+
+For big-O notation answers: \underline{Lower-order terms can generally be ignored}
+e.g. $f(N) = 2N^2 + N$ then its big-O notation is $T(N) = O(N^2)$
+
+For \emph{relative growth rates} of two Function, we using `\emph{L'Hopitals's rule}' to determine it:
+\begin{theorem}[L'Hopitals's rule]
+    If $\lim_{N\to\infty}f(N) = \infty$ and $\lim_{N\to\infty}g(N) = \infty$, 
+    then $\lim_{N\to\infty} \frac{f(N)}{g(N)} = \lim_{N\to\infty} \frac{f'(N)}{g'(N)}$
+\end{theorem} 
+
+Four possible results:
+\begin{itemize}
+    \item Limit is 0: $f(N) = 0(g(N))$
+    \item Limit is $c\neq 0$: $f(N) = \Theta(g(N))$
+    \item Limit is $\infty$: $g(N) = o(f(N))$
+    \item Limit does not exist: No relations
+\end{itemize}
+
+\section{Model}
+Basically a normal computer which execute instructions sequentially. And it has inifinite memory
+
+\section{What to Analyze}
 
 \end{document}
