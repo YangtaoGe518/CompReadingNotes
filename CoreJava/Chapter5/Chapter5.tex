@@ -246,7 +246,116 @@ When to use Protected:
     \item `no modifier': default is accessible in the package 
 \end{itemize}
 
+\section{\emph{Object:} The Cosmic Superclass}
+Object method: Only cover \underline{equals, hashcode, toString} Methods, In Chapter 12 concurrency, more method will be covered
 
+\subsection{Variables of Type `object'}
+Variables `\emph{object}' can refer to \underline{any type} e.g.
+\begin{lstlisting}[language=Java]
+    Object obj = new Employee(``Harry Porter'', 35000);
+\end{lstlisting}
+
+Only value of \emph{\underline{primitive types}} are not objects
+
+All array types are classes extended from `Object' class
+
+\subsection{The `\emph{equals}' Method}
+\underline{Definition:} \emph{`equals'} method tests whether one \textbf{object} is equal to another.\newline
+Differents between \emph{equals} (equal) and \emph{==} (identical):
+\begin{itemize}
+    \item \textbf{==}: checks if both objects point to the same \underline{memory location}
+    \item \textbf{equals()}: evaluates to the comparision of \underline{value in the object}
+\end{itemize}
+N.B. identical $\rightarrow$ equal (True); equal $\rightarrow$ identical (False)
+
+This method usually needs implementing to do state-based equality testing (whether they are in the same state)\newline
+e.g.
+\begin{lstlisting}[language=Java]
+public class Employee{
+    ... 
+    public boolean equals(Object otherObject){
+        // whether the objects are identical
+        if (this == otherObject) return true;
+        // explicit para is null
+        if (otherObject == null) return false;
+        // class don't match
+        if (getClass() != otherObject.getClass){
+            return false;
+        }
+        // After checking 3 conditions above
+        // it must be a non-null Employee
+        Employee other = (Employee) otherObject;
+        // whether the fields have identical values
+        return name.equal(other.name)
+            && salary == other.salary
+            && Objects.equals(hireDay, other.hireDay);
+    }
+}
+\end{lstlisting}
+
+When defining `equals' method for a subclass, we need to call `equals' on its \emph{`superclass'}\newline
+e.g.
+\begin{lstlisting}[language=Java]
+public class Manager extends Employee{
+    ... 
+    public boolean equals(Object otherObject){
+        //check belongs to the same class
+        if(!super.equals(otherObject)) return false;
+        Manager other = (Manager) otherObject;
+        return bonus == other.bonus;
+    }
+}
+\end{lstlisting}
+
+\subsection{Equality Testing and Inheritance}
+The requirement for `\emph{equals} method':
+\begin{itemize}
+    \item \textbf{Reflexive}: for non-null reference x, \emph{x.equals(x)} return \underline{true}
+    \item \textbf{Symmetric}: for ref x \& y, \emph{x.equals(y) $\Leftrightarrow$ y.equals(x)}
+    \item \textbf{Transitive}: for ref x, y \& z, \emph{x.equals(y) $\land$ y.equals(z) $\rightarrow$ x.equals(z)}
+    \item \textbf{consistent}: x, y not change $\rightarrow$ \emph{x.equals(y)} remains the same
+    \item for any non-null ref x, \emph{x.equal(null)} is \underline{false}
+\end{itemize}
+
+Recipe for writting the perfect `\emph{equals} method':
+\begin{enumerate}
+    \item name the explicit parameter `\emph{otherObject}' (cast it to `\emph{other}' later)
+    \item test itdentity:
+    \begin{lstlisting}[language=Java]
+    if (this == otherObject) return true;
+    \end{lstlisting}
+    \item test whether it is null:
+    \begin{lstlisting}[language=Java]
+    if (otherObject == null) return false;
+    \end{lstlisting}
+    \item Compare the classes of \emph{this} and \emph{otherObject}:
+    \begin{itemize}
+        \item If the semantics of `equals' can \underline{change in subclasses}: Using \textbf{getClass()}
+    \begin{lstlisting}[language=Java]
+    if(getClass() != otherObject.getClass()) return false;
+    \end{lstlisting}
+        \item If the \underline{same} semantics holds for \underline{all subclasses}: Using \textbf{instanceof}
+    \begin{lstlisting}[language=Java]
+    if(!(otherObject instanceof ClassName)) return false;
+    \end{lstlisting}
+    \end{itemize}
+    \item Cast \emph{otherObject} to a variabe of current class type:
+    \begin{lstlisting}[language=Java]
+    ClassName other = (ClassName) otherObject;
+    \end{lstlisting}
+    \item Compare the fields:
+    \begin{itemize}
+        \item Use `==' for primitive type fields
+        \item Use `Object.equals' for object fields
+    \end{itemize}
+    \begin{lstlisting}[language=Java]
+    return field1 == othe.field1
+        && Objecs.equals(field2, other.field2)
+    \end{lstlisting}
+\end{enumerate}
+
+Common mistake: \underline{Cannot declares the method para as `explicit para'} (e.g. Employee).
+protect from it by adding `\textbf{@Override}'
 
 
 \end{document}
