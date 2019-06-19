@@ -357,5 +357,55 @@ Recipe for writting the perfect `\emph{equals} method':
 Common mistake: \underline{Cannot declares the method para as `explicit para'} (e.g. Employee).
 protect from it by adding `\textbf{@Override}'
 
+\subsection{The \emph{hashCode} Method}
+\underline{Definition}: A hash code is an \underline{integer} that derived from an object.
+
+Two types of \emph{hashcode} method:
+\begin{itemize}
+    \item default hashcode: derives the hash code from the object's \underline{memory address}
+    \item redefined hashcode: has it own algorithm. e.g. Strings derives from its \emph{content}
+\end{itemize}
+
+Usually, `equals' method is related to `hashcode' method (redefine together):
+\begin{itemize}
+    \item \emph{x.equal(y) $\rightarrow$ x.hashCode() == y.hashCode()}
+    \item define equal on employee ID $\rightarrow$ hashcode method only hashes employee ID
+\end{itemize}
+
+An examples of `hashcode' method:\newline
+e.g.1
+\begin{lstlisting}[language=Java]
+public int hashCode(){
+    return 7 * Objects.hashCode(name)
+        + 11 * Double.hashCode(salary)
+        + 13 * Objects.hashCode(hireDay);
+}
+\end{lstlisting} 
+
+e.g.2 use `\emph{hash()} method'
+\begin{lstlisting}[language=Java]
+public int hashCode(){
+    return Objects.hash(name, salary, hireDay);
+}
+\end{lstlisting}
+
+\subsection{The \emph{toString} Method}
+\emph{Ref:pp.241-243}
+
+A normal \emph{toSrting} method:
+\begin{lstlisting}[language=Java]
+public String toString(){
+    return getClass().getName()
+        + ``[name=" + name
+        + ``,salary='' + salary
+        + ``,hireDay='' + hireDay
+        + ``]'';
+}
+\end{lstlisting}
+
+
+Every object can be printed because of `toString' method
+
+It is useful for logging in Chapter 7.
 
 \end{document}
