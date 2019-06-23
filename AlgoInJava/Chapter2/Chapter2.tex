@@ -109,5 +109,89 @@ Four possible results:
 Basically a normal computer which execute instructions sequentially. And it has inifinite memory
 
 \section{What to Analyze}
+What we focus:
+\begin{itemize}
+    \item Input size
+    \item Running time
+\end{itemize}
+
+What we use:
+\begin{itemize}
+    \item $T_{avg}(N)$ : average running time -- reflect typical behaviour.
+    \item $T_{worst}(N)$: worst running time -- a guarantee for performance on any possible input
+\end{itemize}
+\emph{Ref: pp. 33 - 35} (Maximum subsequence Sum Problem)
+
+\section{Running Time Calculations}
+We only focus on \emph{big-O notation} answers.
+
+\subsection{A simple Example}
+Calculations of $\sum_{i=1}^N i^3$. The code is as follows:
+\begin{lstlisting}[language=Java]
+    public static int sum(int n){
+        int partialSum = 0;           // Line 1
+        for(int i = 1; i <= n; i++){  // Line 2
+            partialSum += i * i * i;  // Line 3
+        }
+        return partialSum;            // Line 4
+    }
+\end{lstlisting}
+
+\underline{Analysis:}
+\begin{itemize}
+    \item Line 1: 1 time for assignment
+    \item Line 2: 2N + 2 times in total:
+    \begin{itemize}
+        \item 1 time for initialization
+        \item N + 1 times for comparison
+        \item N times for increment
+    \end{itemize}
+    \item Line 3: 4N times in total(2 multiplication, 1 addition, 1 assignment)
+    \item Line 4: 1 time for return
+\end{itemize}
+In total $6N + 4$, so we say that it is a $O(N)$ method 
+
+\subsection{General Rules}
+\begin{enumerate}
+    \item `For' loops: $T = T_{statements} * iterations$ (at most)
+    \item `Nested' loops: $T = T_{statements} * \prod_{}SizeOfLoop$ (Analysis them inside-out)
+    \item Consecutive statements: Use `big-O' notation add \newline 
+    e.g. $O(N)$ followed by $O(N^2)$ is still $O(N^2)$
+    \item `if-else': $T = \max(T_{Stat1}, T_{Stat2})$ (sometimes overestimate, but never underestimate)
+\end{enumerate}
+
+\subsection{Solution for the Problem of Maximum subsequence Sum}
+Four algorithms are provided here (\emph{Ref: pp.39 - 49})
+
+\subsection{Logarithms in the Running Time}
+Some Logarithms algorithms:
+\begin{itemize}
+    \item \emph{divide-and-conquer} algorithms: $O(N\log_{}N)$ time 
+    \item General rules:
+    \begin{itemize}
+        \item $O(\log_{}N)$: takes constant $O(1)$ time to cut the problem size by a fraction (usually $1/2$)
+        \item $O(N)$: constant time requred to merely reduce the problem by a constant amount
+    \end{itemize}
+\end{itemize}
+
+Following subsection are some common Logarithmic algorithms:
+
+\subsubsection{Binary Search}
+
+\subsubsection{Euclid's Algorithm}
+
+\subsubsection{Exponentiation}
+
+\subsection{A Grain of Salt}
+Sometimes, Worst case is better than average case:
+\begin{itemize}
+    \item average case is very complex
+    \item Analysis needs to be tightened
+    \item average running time is less significant than worst case running time
+\end{itemize}
+
+
+
+
 
 \end{document}
