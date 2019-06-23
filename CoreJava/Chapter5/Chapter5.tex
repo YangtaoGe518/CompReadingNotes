@@ -408,4 +408,136 @@ Every object can be printed because of `toString' method
 
 It is useful for logging in Chapter 7.
 
+\section{Generic Array Lists}
+In Java we can set the size of an array at \textbf{running time}.
+Also, we could use \textit{generic type} e.g. \emph{ArrayList} has ability to adjust the capacity
+
+** A generic type is a generic class or interface that is parameterized over types; usually using diamond notation ($<$Type$>$)\newline
+\emph{Ref: Chapter 8 \& Java Doc}
+
+\subsection{Declaring Array Lists}
+Three ways to init a Array List:
+\begin{itemize}
+    \item \textit{ArrayList$<$Employee$>$ staff = new ArrayList$<$Employee$>$()}
+    \item \textit{var staff = new ArrayList$<$Employee$>$()} (After Java 10)
+    \item \textit{ArrayList$<$Employee$>$ staff = new ArrayList$<>$()}
+\end{itemize}
+
+Differents between `ArrayList' and `array':
+\begin{itemize}
+    \item array: \emph{new Employee[100]} $\rightarrow$ the size of the array is 100 (cannot be changed)
+    \item ArrayList: \emph{new ArrayList$<>$(100)} The capacity of ArrayList is 100, but the size is `zero'
+    \begin{itemize}
+        \item extendable: \emph{new ArrayList$<>$(100)} or \emph{staff.ensureCapacity(100)}
+        \item unextendable: \emph{staff.trimToSize(100)} 
+    \end{itemize}
+\end{itemize}
+
+\subsection{Accessing Array List Elements}
+Things to Notice:
+\begin{itemize}
+    \item Array: When init for a certain \underline{size} $\rightarrow$ all the slot are avaliable
+    \item ArrayList: When init for a certain \underline{capacity} $\rightarrow$ nothing is in the ArrayList
+\end{itemize}
+
+A way of convience:
+\begin{itemize}
+    \item Make an ArrayList and all all Elements:
+\begin{lstlisting}[language=Java]
+    var list = new ArrayList<X>();
+    while(...){
+        x = ...;
+        list.add(x);
+    }
+\end{lstlisting}
+    \item use \emph{toArray()} method to copy the elements into an array:
+\begin{lstlisting}[language=Java]
+    var a = new X[list.size()];
+    list.toArray();
+\end{lstlisting}
+\end{itemize}
+
+We can use \underline{enhance loop} to traverse the contents of an ArrayList:
+\begin{lstlisting}[language=Java]
+    for(Employee e : staff){
+        do something
+    }
+\end{lstlisting}
+
+\subsection{Compatibility between Typed and Raw ArrayLists}
+The limitation of generic types in Java:\newline
+Compiler translates all typed ArrayLists into raw ArrayList object \emph{\textbf{after checking that type rules are not violated}}
+
+\section{Object Wrappers and Autoboxing}
+\underline{Definition:} Converting a primitive type to an Object is called Wrapping, these classes are 
+called Wrappers. e.g. \emph{int $\rightarrow$ Integer}
+
+Some feature of Wrappers:
+\begin{itemize}
+    \item eight of them: Integer, Long, Float, Double, Short, Byte, Character, Boolean
+    \item First 6 of them are subclass of \emph{number}
+    \item They are \emph{immutable} -- cannot change the value once they are constructed
+    \item They are final -- cannot subclass them.
+\end{itemize}
+
+\underline{Definition:} automatically box a primitive type to a Wrapper. e.g.
+\begin{lstlisting}[language=Java]
+    list.add(3)
+    list.add(Integer.valueOf(3)) //they are the same
+\end{lstlisting}
+
+Wrapper class reference can be \emph{null} but primitive type cannot be a null reference. Hence,
+it is possible to have a \emph{NullPointerException}
+
+To convert string to an integer:
+\begin{lstlisting}[language=Java]
+    int x = Integer.parseInt(str);
+\end{lstlisting}
+
+\section{Methods with a Variable Number of Parameters}
+It is an application of \emph{autoboxing}.\newline
+e.g.
+\begin{lstlisting}[language=Java]
+    public static double max(double... values){
+        double largest = Double.NEGATIVE_INFINITY;
+        for (double v: values){
+            if (v > largest){
+                largest = v;
+            }
+        }
+        return largest;
+    }
+
+    double m = max(3.1, 40.4, -5);
+\end{lstlisting}
+In this case, compiler passes a new double[]{3.1, 40.4, -5} to the max function we defined.
+
+We can say that ``varages'' methods usually pass an \emph{array} of objects into the argument.
+
+\section{Enumeration Classes}
+Define a Enum type:
+\begin{lstlisting}[language=Java]
+    public enum Size{
+        SMALL(``S''), MEDIUM(``M''), 
+        LARGE(``L''), EXTRA_LARGE(``XL'');
+        private String abbreviation;
+
+        private Size(String abbreviation){
+            this.abbreviation = abbreviation;
+        }
+        public String getAbbreviation(){
+            return abbreviation;
+        }
+    }
+\end{lstlisting}
+
+Some Notices:
+\begin{itemize}
+    \item The constructor of it must be \emph{private} -- cannot change it contents
+    \item All self-defined enum type are the subclasses of ``\emph{Enum}''
+    \item ``\emph{toString}'': size.SMALL.toSrting() returns ``SMALL''
+    \item ``\emph{valueOf}'': size s = Enum.valueOf(Size.class, ``SMALL'') -- set s to size.SMALL
+\end{itemize}
+
+
 \end{document}
