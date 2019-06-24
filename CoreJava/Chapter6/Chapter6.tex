@@ -141,6 +141,113 @@ some useful situation for \emph{default} modifier:
 \end{itemize} 
 
 \subsection{Resolving Default Method Conflicts}
+Two basic rules for resolving default method conflicts:
+\begin{itemize}
+    \item \textbf{Class win rule}: if a superclass provides a conrete method, 
+    default methods with the same name and parameter types are ignored
+    \begin{lstlisting}[language=Java]
+    class Student extends Person implements Named{
+        ... // use getName in Person class only
+    }
+    \end{lstlisting}
 
+    \item \textbf{Interfaces clash rule}: if an interface provide default method, 
+    another interface contains a method with the same name and parameter (types default or not),
+    then you must resolve the conflict by overriding the method 
+    \begin{lstlisting}[language=Java]
+    class Student implements Person, Named{
+        public String getName(){
+            //choose to use getName in Person
+            return Person.super.getName();
+        }
+    }
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Interfaces and Callbacks}
+\underline{Definition:} \emph{callback} pattern means when you specify the action that should 
+happen whenever a particular event happens. e.g. \emph{ActionListener} in java swing
+
+Usually, we will \underline{predefine} how a method work of a method, then call it whenever we want it. 
+
+\textit{Ref: pp.310 - 312 \& COMP 0004 Java Coursework Part2}
+
+\subsection{The \emph{Comparator} Interface}
+What is is like:
+\begin{lstlisting}[language=Java]
+    public interface comparator<T>{
+        int compare(T first, T second);
+    }
+\end{lstlisting}
+
+Using user-defined comparator:
+\begin{lstlisting}[language=Java]
+public class LengthComparator implements Comparator<String>{
+    public int compare(String first, String second){
+        return first.length() - second.length();
+    }
+}
+
+String friends = {``Peter'', ``Paul'', ``Mary''};
+Array.sort(friends, new LengthComparator());
+\end{lstlisting}
+
+\emph{Ref: pp.323 - 314 \& p.322}
+
+\subsection{Object Cloning}
+Difference between `copy' and `clone':
+\begin{itemize}
+    \item copy (=): make a copy of variable holding an object reference -- change to either variable also affects the other
+    \newline i.e. original $\rightarrow$ Employee $\leftarrow$ copy
+    \item clone (clone()): identical to original but whose state can diverge over time
+    \newline i.e. original $\rightarrow$ Employee1; cloned $\rightarrow$ Employee2
+\end{itemize}
+
+clone method is `\emph{protected}' so that it can only clone itself. i.e. Employee's clone can clone Employee only
+
+Two types of Clone:
+\begin{itemize}
+    \item \textbf{Shallow copy}: (default) just copy the object only, don't care what are inside it. -- only valid for immutable objects
+\begin{lstlisting}[language=Java]
+class Employee implements Cloneable{
+    //public access, changfe return type
+    public Employee clone() throws CloneNotSupportedException{
+        return (Employee) super.clone();
+    }
+ }
+\end{lstlisting}
+
+    \item \textbf{Deep copy}: (redefined) clone the instance fields piece by piece -- for mutable objects
+\begin{lstlisting}[language=Java]
+class Employee implements Cloneable{
+    ...
+    public Employee clone() throws CloneNotSupportedException{
+        //call Object.clone
+        Employee cloned = (Employee)super.clone
+        //clone mutable fields
+        clone.hireDay = (Date)hireDay.clone
+    }
+}
+\end{lstlisting}
+\end{itemize}
+i.e. \emph{super} means \underline{Cloneable interface}
+
+Condition to use clone:
+\begin{itemize}
+    \item it can be cloned:
+    \begin{itemize}
+        \item default clone is good enough (shallow clone)
+        \item default clone can be patched up by calling \emph{clone} on mutable sub-objects
+    \end{itemize}
+    \item it cannot be cloned
+\end{itemize}
+
+When it is cloneable:
+\begin{enumerate}
+    \item implement the \emph{Cloneable} interface
+    \item redefine the \emph{clone} method with the \emph{public} accessor
+\end{enumerate}
+
+\section{Lambda Expression}
 
 \end{document}
