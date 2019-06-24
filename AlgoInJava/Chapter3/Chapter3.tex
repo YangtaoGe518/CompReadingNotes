@@ -32,4 +32,67 @@ This section discusses about:
 \end{itemize}
 \end{abstract}
 
+\section{Abstract Data Types (ADT)}
+\underline{Definition:} \emph{Abstract data type} is a set of \underline{objects} together with
+a set of \underline{operations}
+
+The three data structures (Lists, Stacks, and Queues) are ADT examples
+
+\section{The List ADT}
+Some Feature of List:
+\begin{itemize}
+    \item general form is: $A_0, A_1,A_2, ..., A_{N-1}$
+    \item special list of size 0 is \textbf{empty list}
+    \item $A_i$ succeeds $A_{i-1}$ \& $A_{i-1}$ precedes $A_i$
+    \item First element is $A_0$ \& Last element is $A_{N-1}$
+    \item position  of element $A_i$ is $i$
+\end{itemize}
+\subsection{Simple Array Implementation of Lists}
+Using plain array: Only use array accesses (i.e. \emph{findkth} operation)
+
+\textit{Ref: pp.58 - 59}
+
+\subsection{simple Linked Lists}
+feature of linked list:
+\begin{itemize}
+    \item consists of a series of nodes 
+    \item each node contains the `\emph{element}' and `\emph{next} link'
+    \item the last cell's `last link' is \emph{null}
+\end{itemize}
+
+Some avaliable method definition:
+\begin{itemize}
+    \item findkth: scan through the list and find the element on that position
+    \item find: find the position that the element we specify 
+    \item remove: method can be executed in one \emph{next} reference change
+    \item insert: requires obtaining a new node from the system by using a \emph{new} call
+    and executing two reference maneuvers
+\end{itemize}
+
+When removing the last element: \underline{tricky} $\rightarrow$ using double linked list
+
+\section{List in the Java Collection API}
+\subsection{\emph{Collection} Interface}
+Some feature of \emph{Collection} Interface:
+\begin{itemize}
+    \item package in \emph{java.util}
+    \item collection extends the \emph{Iterable} Interface
+    \item can use enhance for loop
+    \item method in Collection Interface:
+\begin{lstlisting}[language=Java]
+public interface Collection<AnyType> extends Iterable<AnyType>{
+    int size();
+    boolean isEmpty();
+    void clear();
+    boolean contains(AnyType x);
+    boolean add(AnyType x);
+    boolean remove(AnyType x);
+    java.util.Iterator<AnyType> iterator();
+}
+\end{lstlisting}
+\end{itemize}
+
+
+
+
 \end{document}
