@@ -1,0 +1,146 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Interfaces, Lambda Expressions, and Inner Classes}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Interfaces}
+\subsection{The Interface Concept}
+\underline{Definition:} \emph{\textbf{Interface}} is not a class but a set of \emph{requirements} for the classes
+that we want to conform to the interface. \newline
+e.g.
+\begin{lstlisting}[language=Java]
+    public interface Comparable<T>{
+        int compareTo(T other); // para has type T
+    }
+\end{lstlisting}
+
+Some Notice to Interface:
+\begin{itemize}
+    \item all methods of an interface are automatically \underline{\textit{public}} -- we don't add \emph{public} in the signiture
+    \item interfaces can define constants
+    \item interfaces cannot have instance fields
+    \item method are never implemented in interface (we could now, but it's \textbf{BAD})
+\end{itemize}
+
+To make a class implement an interface:
+\begin{enumerate}
+    \item declare that your class intends to \emph{implement} the given interface
+    \item supply definitions for \underline{all} methods in the interface
+\end{enumerate}
+e.g.
+\begin{lstlisting}[language=Java]
+    class Employee implements Comparable<Employee>{
+        public int compareTo(Employee other){
+            return Double.compare(salary, other.salary);
+        }
+        ... 
+    }
+\end{lstlisting}
+N.B. Try to use \emph{Generic type}, less using `type cast'.
+
+Regarding to \textit{compareTo} method:
+\begin{itemize}
+    \item how to compare:
+    \begin{itemize}
+        \item substraction: if we know the maximum bounday is less than `maximum of Integer'.
+        \item compareTo: don't care
+    \end{itemize}
+    \item inheritance Problems: (solve like \emph{equal()} method in Chapter 5)
+    \begin{itemize}
+        \item different notations of comparison: add a same class test
+        \begin{lstlisting}[language=Java]
+        if(getClass() != other.getClass){
+            throw new ClassCastException;
+        }    
+        \end{lstlisting}
+        \item common algorithm: provide a single \emph{compareTo} method, and declare it as \emph{final}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Properties of Interfaces}
+Some properties of Interface:
+\begin{itemize}
+    \item Interfaces are not classes -- can't do `\emph{x = new Comparable(...);}'
+    \item we can declare \underline{interface variables}
+    \begin{itemize}
+        \item can do `\emph{Comparable x;}'
+        \item can do `\emph{x = new Employee(...);}' (since `Employee' implements Comparable)
+    \end{itemize}
+    \item we can check whether an object implements an interface by `\emph{instanceof}' keyword
+    \item we can extend Interfaces
+    \begin{lstlisting}[language=Java]
+    public interface Moveable{
+        void move (double x, double y);
+    }
+    public interface Powered extends Moveable{
+        double milesPerGallon();
+    }
+    \end{lstlisting}
+    \item we can add \emph{constants} in the interface. This mathod is automatically `\textbf{public static final}'
+    \begin{lstlisting}[language=Java]
+    public interface Powered extends Moveable{
+        double milesPerGallon();
+        // public static final constant
+        double SPEED_LIMIT = 95; 
+    }
+    \end{lstlisting}
+    \item classes can implement \emph{multiple} interfaces -- we can do `\emph{class Employee implements Person, Comparable}'
+    (but one class can only have one superclass)
+\end{itemize}
+
+\subsection{Interfaces and Abstract Classes}
+\underline{Key:} A class can only extend a single class, but can implement several interfaces.
+
+We can think it as:
+\begin{itemize}
+    \item abstract classes: tends to stress what it is (inheritance -- `is-a relationship')
+    \item interface: tends to illustrate what can it do (properties).
+\end{itemize}
+N.B. Remember it by -- \textbf{things can only belong to one class, but it can have several properties.}
+
+\subsection{Static and Private Methods}
+We can add '\emph{static} method' since Java 8, and `\emph{private} method' since Java 9.
+This is not very useful.
+
+\textit{Ref: p.306}
+
+\subsection{Default Methods}
+some useful situation for \emph{default} modifier:
+\begin{itemize}
+    \item implement `iterator': providing an exception
+    \begin{lstlisting}[language=Java]
+    public interface Iterator<E>{
+        boolean hasNext();
+        E next();
+        default void remove(){
+            throw new UnsupportedOperationException(``remove'')
+        }
+    }
+    \end{lstlisting}
+    \item implement `collection': call other methods
+    \begin{lstlisting}[language=Java]
+    public interface Collection{
+        int size(); // an abstract method
+        default boolean isEmpty(){
+            return size() == 0;
+        }
+    }
+    \end{lstlisting}
+    \item \emph{interface evolution} for adding class in the future.
+\end{itemize} 
+
+\subsection{Resolving Default Method Conflicts}
+
+
+\end{document}
