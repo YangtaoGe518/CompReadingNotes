@@ -249,5 +249,207 @@ When it is cloneable:
 \end{enumerate}
 
 \section{Lambda Expression}
+\subsection{Why Lambdas?}
+\underline{Definition:} \emph{Lambda expression} is a block of code that you can pass around so it can be
+executed \textbf{later, once or multiple times}
+
+Java will not pass the actual code block around. Lambda expression provides a tag (API) to access them.
+
+\subsection{The Syntax of Lambda Expression}
+Three types of lambda expression:
+\begin{itemize}
+    \item simple return:
+    \begin{lstlisting}[language=Java]
+    (String first, String second) 
+        -> first.length()-second.length()
+    \end{lstlisting}
+    \item code block:
+    \begin{lstlisting}[language=Java]
+    (String first, String second) -> {
+        if (first.length() < second.length()) return -1;
+        else if (first.length() < second.length()) return -1;
+        else return 0;
+    }
+    \end{lstlisting}
+    \item no parameters:
+    \begin{lstlisting}[language=Java]
+    () -> {
+        for (int i = 100; i>= 0; i--) System.out.println(i);
+    }
+    \end{lstlisting}
+\end{itemize}
+
+i.e. We never specify the `\emph{Return type}', it is inferred from the context.
+
+\subsection{Function Interface}
+\underline{Definition:} \emph{functional interface} is an \textbf{interface} that we can supply a lambda expression
+whenever an object of an interface with a \underline{single abstract method} is expected.
+(i.e. it is implement an interface by `lambda expression')
+
+Some applications of functional interface:
+\begin{itemize}
+    \item \textbf{Predicate}:
+    \begin{lstlisting}[language=Java]
+    public interface Predicate<T>{
+        boolean test(T t);
+    }
+    \end{lstlisting}
+    The `ArrayList' class has a \emph{removeIf} method whose para is a `Predicate'
+    \begin{lstlisting}[language=Java]
+    list.removeIf(e -> e == null)
+    \end{lstlisting}
+    \item \textbf{Supplier}: used for lazy evalutation
+    \begin{lstlisting}  [language=Java]
+    public interface Supplier<T>{
+        T get();
+    }
+    \end{lstlisting}
+    The `requireNonNullOrElseGet' method only calls the supplier when value is needed:
+    \begin{lstlisting}[language=Java]
+    LocalDate hireDay = Object.requireNonNullOrElseGet(day,
+        () -> new LocalDate(1970, 1, 1))
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Method Reference}
+\underline{Def:} \emph{method reference} directs the compiler to produce an instance of a functional interface
+, overriding the \underline{single abstract} method of the interface to call the given method. \newline
+e.g.
+\begin{lstlisting}[language=Java]
+var timer = new timer(1000, event -> System.out.println(event));
+\end{lstlisting}
+is the same as:
+\begin{lstlisting}[language=Java]
+var timer = new timer(1000, System.out::println);
+\end{lstlisting}
+here, \emph{\textbf{System.out::println}} is a `method reference'
+
+Three variants of Method reference (\underline{target::methodName}):
+\begin{itemize}
+    \item \emph{object::instanceMethod}: e.g. \emph{System.out::println}
+    \begin{lstlisting}[language=Java]
+    x -> System.out.println(x)
+    \end{lstlisting}
+    \item \emph{Class::instanceMethod} + 2 variants: e.g \emph{String::compareToIgnoreCase}
+    \begin{lstlisting}[language=Java]
+    (x, y) -> x.compareToIgnoreCase(y);
+    x -> this.equals(x);
+    \end{lstlisting}
+    \begin{itemize}
+        \item \emph{this::instanceMethod}
+        \item \emph{super::instanceMethod}
+    \end{itemize}
+    \item \emph{Class::staticMethod}: e.g. \emph{Math::pow}
+    \begin{lstlisting}[language=Java]
+    (x, y) -> Math.pow(x, y)
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Constructor Reference}
+Almost the same as `method reference', except name of the method is \emph{new}
+e.g.
+\begin{lstlisting}[language=Java]
+Person[] people = stream.toArray(Person[]::new)
+\end{lstlisting}
+
+i.e. \emph{int[]::new} is the same as `\emph{x -$>$ new int[x]}'
+
+\subsection{Variable Scope}
+How to construct a lambda expression (three ingredients):
+\begin{enumerate}
+    \item A block of code
+    \item parameters
+    \item Value for the `\emph{free}' variables (i.e. val which is not parameter and not defined inside code)
+\end{enumerate}
+e.g.
+\begin{lstlisting}[language=Java]
+public static void repeatMessage (String text, int delay){
+    ActionListener listener = event -> {
+        System.out.println(text);
+        Toolkit.getDefaultToolKit().beep();
+    };
+    new Timer(delay, listener).start();
+}
+
+repeatMessage(``Hello'', 1000);
+\end{lstlisting}
+N.B. Here,
+\begin{itemize}
+    \item `text'is a \textbf{free} variable.
+    \item `Hello' is a \textbf{captured} variable.
+\end{itemize}
+
+Some Notice of the scope in lambda expression:
+\begin{itemize}
+    \item we can't mutate captured variable (increment)
+    \item we can't refer to a variable that is mutated outside (for loop)
+    \item captured var must be `effectively final' \newline 
+    (i.e. it means never assigning a new value after it has been initialized)
+    \item it has the same scope as a nested block -- can't have a para in lambda which has the same name as a local val
+\end{itemize}
+
+\subsection{Processing Lambda Expression}
+The point of using lambdas is \underline{\textbf{deferred execution}} (i.e. execute it later)
+
+Some cases for executing code later:
+\begin{itemize}
+    \item Running code in separate thread
+    \item Running code multiple times
+    \item Running code at right point in an algorithm
+    \item Running code when something happen
+    \item Running code when necessary
+\end{itemize}
+
+To accept the lambda, we need to pick a \underline{\textbf{functional interface}} e.g.:
+\begin{lstlisting}[language=Java]
+public interface IntConsumer{
+    // this is a functional interface
+    void accept(int val);
+}
+
+public static void repeat(int n, IntConsumer action){
+    // this is the method to accept lambdas
+    for (int i = 0; i < n; i++){
+        action.accept(i);
+    }
+}
+
+// this is how to call it
+repeat(10, i -> System.out.println(``CountDown: '' + (9 - i)))
+\end{lstlisting}
+i.e. \emph{Ref:}
+\begin{itemize}
+    \item \underline{\textbf{Function Interface}} are on \textit{p.337}
+    \item \underline{\textbf{Function Interface} for primitive types} are on \textit{p.338}
+\end{itemize}
+
+\subsection{More about Comparators}
+Some common method in Comparator:
+\begin{itemize}
+    \item plain sort an array:
+    \begin{lstlisting}[language=Java]
+    Array.sort(people,
+        Comparing(Person::getName));
+    \end{lstlisting}
+    \item two-level sort an array:
+    \begin{lstlisting}[language=Java]
+    Array.sort(people,
+        Comparator.comparing(Person::getLastName)
+        .thenComparing(Person::getFirstName));
+    \end{lstlisting}
+    \item user-defined sort:
+    \begin{lstlisting}[language=Java]
+    Array.sort(people,
+        Comparator.comparing(Person::getName,
+        (s,t) -> Integer.compare(s.length(), t.length())))
+    \end{lstlisting}
+    \item including \emph{null} in Key function:
+    \begin{lstlisting}[language=Java]
+    Array.sort(people, 
+        comparing(Person::getMiddleName, 
+            nullsFirst(natureOrder())))
+    \end{lstlisting}
+\end{itemize}
+\emph{Ref: pp.339 - 340 \& Java doc `Comparator'}
 
 \end{document}
