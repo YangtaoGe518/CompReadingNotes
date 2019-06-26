@@ -452,4 +452,154 @@ Some common method in Comparator:
 \end{itemize}
 \emph{Ref: pp.339 - 340 \& Java doc `Comparator'}
 
+\section{Inner Class}
+Two reasons for construct an inner class:
+\begin{itemize}
+    \item hidden from other classes in the same package
+    \item access the data from the scope where they are defined (its mother class)
+\end{itemize}
+
+\subsection{Use of an Inner Class to Access Object State}
+An example of inner class:
+\begin{lstlisting}[language=Java]
+    public class TalkingClock{
+        private int interval;
+        private boolean beep;
+
+        public TalkingClock(int interval, boolean beep){...}
+        public void start(){...}
+
+        public class TimePrinter implements ActionListener{
+            //this is an inner class
+        }
+    }
+\end{lstlisting}
+
+Some Notices to this example:
+\begin{itemize}
+    \item \textbf{NOT} every `TalkingClock' has a `TimePrinter' instance field.
+    \item inner class(`TimePrinter') has access to:
+    \begin{itemize}
+        \item its own data fields
+        \item those of the outer object creating it
+    \end{itemize}
+    \item Inner class can be \textbf{private}, normal class can only be public
+\end{itemize}
+
+\subsection{Special Syntax Rules for inner classes}
+Some new notations:
+\begin{itemize}
+    \item Outer class reference: ``\emph{OuterClass.\textbf{this}}''
+    \item Inner object Constructor: ``\emph{outerObject.\textbf{new} InnerClass (constr para)}''
+    \item Inner class reference: ``\emph{OuterClass.InnerClass}''
+\end{itemize}
+
+\subsection{Are Inner Classes Useful, Necessary, or Secure?}
+Important Fact: inner classes are a phenomenon of the `\emph{compiler}', not the `\emph{virtual machine}'
+
+\underline{Explaination:} If we define a regular class the same as the inner class, 
+we will get the class with exact same functionalities but with some \emph{tags}\newline
+e.g.
+\begin{lstlisting}[language=Java]
+public class innerClass.TalkingClock$TimePrinter
+    implements java awt.event.ActionListener{
+        final innerClass.TalkingClock this$0;
+        public innerClass.TalkingClock$TimePrinter
+            (innerClass.TalkingClock);
+        public void actionPerformed
+            (java.awt.even.ActionListener)
+    }
+\end{lstlisting}
+`\emph{this\$0}' is produced by the compiler and run that in the virtual machine
+
+\underline{Necessity:}\newline
+Inner class is powerful than regular class because they have more \underline{\textbf{access privileges}}.
+
+\underline{Security:}\newline
+When it is a public accessiable inner class, it is possible to hack the class by adding class into the same package
+
+\subsection{Local Inner Class}
+\underline{Definition:} Class defined inside local Methods
+
+Their accssors are never declared, and their scope is always restricted to the block where they are declared
+
+\subsection{Accessing Variables from Outer Methods}
+Local inner classes are powerful than other normal inner class: \textbf{they can access local variables}
+
+Noticed that: those local varibales must be \emph{\textbf{effectively} final}
+
+\emph{Ref: For details, pp.350 - 351}
+
+\subsection{Anonymous Inner Classes}
+\underline{Definition:} make only a single objecgt of this class, and don't give the class a name.
+This is called `\emph{Anonymous Inner Classes}'\newline
+e.g.
+\begin{lstlisting}[language=Java]
+public void start(int interval, boolean beep){
+    var listener = new ActionListener(){
+        public void actionPerformed(ActionEvent event){
+            ...
+        }
+    };
+
+    var timer = new timer(interval, listener);
+    timer.start();
+}
+\end{lstlisting}
+
+General Syntax is:\newline
+\emph{\textbf{new} SuperType(construction parameters)\{inner class method and data\}}
+
+Some notice of Anonymous inner classes:
+\begin{itemize}
+    \item \emph{superType} can be an \underline{interface} as well as a \underline{class}
+    \item no constructors (class has no name)
+    \item used for event listeners and other call backs, but better to use lambdas
+\end{itemize}
+
+\subsection{Static Inner Classes}
+\underline{When to use:} want to hide one class inside another, don't want the inner class to have
+reference to the outer class object.\newline
+e.g. Self Defined data structure:
+\begin{lstlisting}[language=Java]
+class ArrayAlg{
+    // self-defined data structure
+    public static class pair{
+        private double first;
+        private double second;
+
+        public Pair(double first, double second){
+            this.first = first;
+            this.second = second;
+        }
+        // getter method
+        ... 
+    }
+
+    // static method using it
+    public static Pair minmax(double[] values){
+        ... 
+        return new Pair(min, max)
+    }
+}
+\end{lstlisting}
+
+some Notices of Static inner class:
+\begin{itemize}
+    \item only inner class can be declared as \emph{static}
+    \item the example requires \emph{static} inner classs(\underline{Pair}) because the inner class object is constructed inside a 
+    \emph{static} method (\underline{minmax})
+    \item static inner classes can have static fields and Methods
+    \item inner classes inside an interface are automatically \emph{static} and \emph{public}
+\end{itemize} 
+
+\section{Service Loaders}
+Materials for the second reading
+
+\section{Proxies}
+Materials for the second reading
+
+
+
+
 \end{document}
