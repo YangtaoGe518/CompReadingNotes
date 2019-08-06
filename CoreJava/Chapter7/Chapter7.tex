@@ -1,0 +1,40 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{Exceptions, Assertions and Logging}
+\author{Yangtao Ge}
+\date{\today}
+
+\begin{document}
+\maketitle
+This section will talk about three topics
+\begin{itemize}
+    \item \textbf{Exception handling}: use some cases to avoid accidental errors
+    \item \textbf{Assertions}: run several checks to make sure you program does the right thing
+    \item \textbf{Logging}: record problems into files
+\end{itemize}
+
+\section{Dealing with Errors}
+Basic Requirement:
+\begin{itemize}
+    \item Return to a safe state and enable the user to execute other commands
+    \item Allow user to save all work and terminate the program \underline{gracefully}
+\end{itemize}
+
+Possible Errors:
+\begin{itemize}
+    \item User input errors: \textit{syntatically} wrong
+    \item Device errors: Hardware may not be able to do what you want (Power off?)
+    \item Physical limitations: Disks can be filled up 
+    \item Code errors: using something in a wrong way for existing codes
+\end{itemize}
+
+In Java, we use '\underline{throw}' to provide an object \textit{which encapsulates the error information}
+
+\end{document}
