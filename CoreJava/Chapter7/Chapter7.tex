@@ -37,4 +37,101 @@ Possible Errors:
 
 In Java, we use '\underline{throw}' to provide an object \textit{which encapsulates the error information}
 
+\subsection{The Classification of Exception}
+Here is the hierarchy of Exception in Java:\newline
+
+Class \textbf{Throwable}:
+\begin{itemize}
+    \item Error: ...
+    \item Exception: 
+    \begin{itemize}
+        \item IOException:
+        \begin{itemize}
+            \item read past the end of a file
+            \item open a file that doesn't existing
+            \item find a \textit{Class} Object for a string that does not denote an existing class 
+        \end{itemize}
+        \item Runtime Exception: \underline{RuntimeException means it was your fault}
+        \begin{itemize}
+            \item A bad cast
+            \item An out of bounds array access
+            \item A null pointer access
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+Here is the classification of Exception:
+\begin{itemize}
+    \item \textbf{unchecked} Exception:
+    \begin{itemize}
+        \item class \textbf{Error}
+        \item class \textbf{RuntimeException}
+    \end{itemize}
+    \item \textbf{checked} Exception: \textit{Others}
+\end{itemize}
+
+\subsection{Declaring Checked Exception}
+Aim of throwing exceptions:
+\begin{itemize}
+    \item tell the Java Compiler \underline{what values it can return}
+    \item tell the Java Compiler \underline{what can go wrong}
+\end{itemize}
+
+We can throw an exception from a method or a constructor(Class). 
+
+For a constructor, when we intialize an object, either it will produce an object correctly, 
+or it will thrown an Exception object. This is the same as methods.
+
+For a method, we \textbf{do not} need to throw every possible exceptions. Here are 4 situations where exception
+will be thrown:
+\begin{itemize}
+    \item Call a method that throws a \textbf{checked} exception
+    \item Detect an \textbf{error} or a \textbf{checked} exception with the `\textit{throw}' statement
+    \item Make a programming error which rise to an \textbf{unchecked} exception
+    \item An internal error occurs in the \underline{virtual machine} or \underline{runtime library}.
+\end{itemize}
+
+In summary:
+\begin{itemize}
+    \item a method must declare all the \underline{checked} exception that it might throw.
+    \item \underline{unchecked} exceptions are either beyond your control or result from conditions that
+    we should not allow in the first place 
+\end{itemize}
+
+\subsection{How to Throw an Exception}
+An example for how to throw an exception:
+\begin{lstlisting}[language=Java]
+    String readData(Scanner in) throws EOFException{
+        ...
+        while(...){
+            if(!in.hasNext()){
+                if(n<len) throw new EOFException();
+            }
+        }
+        return s;
+    }
+\end{lstlisting}
+
+and we could define the exception message if we wish
+\begin{lstlisting}[language=Java]
+String gripe = ``content-length: "+ len +``, Received: " + n;
+throw new EOFException(gripe);
+\end{lstlisting}
+
+\subsection{Creating Exception Classes}
+we can create our own exception classes:
+\begin{lstlisting}[language=Java]
+    class FileFormatException extends IOException{
+        public FileFormatException(){}
+        public FileFormatException(){
+            super(gripe);
+        }
+    }
+\end{lstlisting}
+
+\section{Catching Exceptions}
+Catching needs more \underline{plans} than throwing
+\subsection{Catching an Exception}
+
+
 \end{document}
